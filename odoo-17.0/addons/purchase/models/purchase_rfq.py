@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
     _rec_names_search = ['name', 'partner_ref']
     _order = 'priority desc, id desc'
 
-    order_id = fields.Many2one('purchase.order', string='Order Reference')
+    order_id = fields.Many2one('purchase.order', string='Order Reference', required=True, index=True, copy=False)
     product_uom_qty = fields.Float(string='Quantity', required=True)
     price_unit = fields.Float(string='Unit Price', required=True)
 

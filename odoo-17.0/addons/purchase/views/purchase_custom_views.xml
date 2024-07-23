@@ -96,7 +96,7 @@
                                    context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
                                    placeholder="Name, TIN, Email, or Reference"
                                    readonly="state in ['cancel', 'done', 'purchase']"/>
-                            <field name="order_id"/>
+<!--                            <field name="order_id"/>-->
                             <field name="partner_ref"/>
                             <field name="po_created" readonly="1"/>
                             <field name="currency_id" groups="base.group_multi_currency" force_save="1"
@@ -722,6 +722,7 @@
         </field>
     </record>
 
+
     <record id="purchase_order_line_tree1" model="ir.ui.view">
         <field name="name">purchase.rfq.line.tree</field>
         <field name="model">purchase.rfq.line</field>
@@ -794,7 +795,7 @@
         <field name="model">purchase.rfq.line</field>
         <field name="arch" type="xml">
             <tree create="false" default_order="order_id asc">
-                <field name="order_id" widget="many2one"/>
+<!--                <field name="order_id" widget="many2one"/>-->
                 <field name="date_approve" widget="date"/>
                 <field name="partner_id"/>
                 <field name="product_uom_qty"/>
