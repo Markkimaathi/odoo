@@ -15,6 +15,9 @@ class PurchaseOrderLine(models.Model):
     _description = 'Purchase Order Line'
     _order = 'order_id, sequence, id'
 
+    product_uom_qty = fields.Float(string='Quantity', required=True)
+    price_unit = fields.Float(string='Unit Price', required=True)
+
     name = fields.Text(
         string='Description', required=True, compute='_compute_price_unit_and_date_planned_and_name', store=True, readonly=False)
     sequence = fields.Integer(string='Sequence', default=10)
