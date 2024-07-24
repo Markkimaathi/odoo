@@ -399,3 +399,10 @@ class PurchaseRequestLine(models.Model):
                 self.env.context,
             ),
         }
+
+    @api.onchange('product_qty')
+    def _onchange_quantity(self):
+        # Implement the logic for onchange_quantity
+        if self.product_id:
+            self.price_unit = self.product_id.standard_price
+            self.subtotal = self.product_qty * self.price_unit

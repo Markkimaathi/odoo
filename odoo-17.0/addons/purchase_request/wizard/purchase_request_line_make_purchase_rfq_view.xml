@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record id="view_purchase_request_line_make_purchase_rfq_form" model="ir.ui.view">
+            <field name="name">purchase.request.line.make.purchase.rfq.form</field>
+            <field name="model">purchase.request.line.make.purchase.rfq</field>
+            <field name="arch" type="xml">
+                <form string="Make RFQ">
+                    <group>
+                        <field name="supplier_id"/>
+                        <field name="purchase_order_id"/>
+                        <field name="sync_data_planned"/>
+                    </group>
+
+                        <field name="item_ids">
+                            <tree string="Items">
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom_id"/>
+                                <field name="name"/>
+                                <field name="request_id"/>
+                            </tree>
+                        </field>
+
+                    <footer>
+                        <button name="make_purchase_rfq" string="Create RFQ" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_purchase_request_line_make_purchase_rfq_item_tree" model="ir.ui.view">
+            <field name="name">purchase.request.line.make.purchase.rfq.item.tree</field>
+            <field name="model">purchase.request.line.make.purchase.rfq.item</field>
+            <field name="arch" type="xml">
+                <tree string="Items">
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom_id"/>
+                    <field name="name"/>
+                    <field name="request_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_purchase_request_line_make_purchase_rfq" model="ir.actions.act_window">
+            <field name="name">Create RFQ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.request.line.make.purchase.rfq</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_purchase_request_line_make_purchase_rfq_form" />
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="purchase_request.model_purchase_request_line"/>
+        </record>
+    </data>
+</odoo>
