@@ -20,10 +20,7 @@ class PurchaseRequest(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "id desc"
 
-    rfq_id = fields.Many2one('purchase.rfq', string='RFQ Reference')
-    sync_data_planned = fields.Boolean(string='Sync Data Planned')
-    supplier_id = fields.Many2one('res.partner', string='Supplier')
-    item_ids = fields.One2many('purchase.request.line', 'request_id', string='Items')
+    partner_id = fields.Many2one('res.partner', string='Partner')
 
     @api.model
     def _company_get(self):

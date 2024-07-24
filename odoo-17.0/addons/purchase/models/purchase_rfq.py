@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
     _rec_names_search = ['name', 'partner_ref']
     _order = 'priority desc, id desc'
 
-    order_id = fields.Many2one('purchase.order', string='Order Reference', required=True, index=True, copy=False)
+    order_id = fields.Many2one('purchase.order', string='Order Reference', required=True,copy=False)
     product_uom_qty = fields.Float(string='Quantity', required=True)
     price_unit = fields.Float(string='Unit Price', required=True)
 
@@ -428,9 +428,7 @@ class PurchaseOrder(models.Model):
         ir_model_data = self.env['ir.model.data']
         try:
             if self.env.context.get('send_rfq', False):
-                template_id = ir_model_data._xmlid_lookup('purchase.email_template_edi_purchase')[1]
-            else:
-                template_id = ir_model_data._xmlid_lookup('purchase.email_template_edi_purchase_done')[1]
+                template_id = ir_model_data._xmlid_lookup('purchase.email_template_rfq_edi_purchase')[1]
         except ValueError:
             template_id = False
         try:
