@@ -9,7 +9,7 @@ export class LoginScreen extends Component {
     static template = "pos_hr.LoginScreen";
     setup() {
         super.setup(...arguments);
-        this.cashierSelector = useCashierSelector({
+        this.selectCashier = useCashierSelector({
             onCashierChanged: () => this.back(),
             exclusive: true, // takes exclusive control on the barcode reader
         });
@@ -25,10 +25,6 @@ export class LoginScreen extends Component {
 
     get shopName() {
         return this.pos.config.name;
-    }
-
-    async selectCashier() {
-        return await this.cashierSelector();
     }
 }
 

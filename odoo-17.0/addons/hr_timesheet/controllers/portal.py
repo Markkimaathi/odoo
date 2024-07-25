@@ -150,7 +150,7 @@ class TimesheetCustomerPortal(CustomerPortal):
 
             grouped_timesheets = [(
                 timesheets,
-                Timesheet_sudo._read_group(domain, aggregates=['unit_amount:sum'])[0][0]
+                sum(Timesheet_sudo.search(domain).mapped('unit_amount'))
             )] if timesheets else []
             return timesheets, grouped_timesheets
 

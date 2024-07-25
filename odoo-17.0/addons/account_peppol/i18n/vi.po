@@ -3,7 +3,7 @@
 # 	* account_peppol
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2023
 # Thi Huong Nguyen, 2024
 # 
 msgid ""
@@ -797,7 +797,7 @@ msgstr "ID duy nhất định danh người dùng này, thường là vat"
 #: code:addons/account_peppol/models/res_config_settings.py:0
 #, python-format
 msgid "The verification code is not correct"
-msgstr "Mã xác minh không chính xác"
+msgstr "Mã xác thực không chính xác"
 
 #. module: account_peppol
 #. odoo-python
@@ -812,22 +812,6 @@ msgstr "Mã xác minh phải chứa sáu chữ số."
 #, python-format
 msgid "This verification code has expired. Please request a new one."
 msgstr "Mã xác thực này đã hết hạn. Vui lòng yêu cầu một mã mới."
-
-#. module: account_peppol
-#: model_terms:ir.ui.view,arch_db:account_peppol.res_partner_form_account_peppol
-msgid ""
-"To generate complete electronic invoices, also set a country for this "
-"partner."
-msgstr ""
-
-#. module: account_peppol
-#: model_terms:ir.ui.view,arch_db:account_peppol.res_partner_form_account_peppol
-msgid ""
-"To generate electronic invoices, also set a country and a bank account for "
-"this partner."
-msgstr ""
-"Để tạo hóa đơn điện tử, hãy thiết lập quốc gia và tài khoản ngân hàng cho "
-"đối tác này."
 
 #. module: account_peppol
 #. odoo-python

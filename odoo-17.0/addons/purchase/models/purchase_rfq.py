@@ -22,12 +22,6 @@ class PurchaseOrder(models.Model):
     _rec_names_search = ['name', 'partner_ref']
     _order = 'priority desc, id desc'
 
-    order_id = fields.Many2one('purchase.order', string='Order Reference', required=True,copy=False)
-    product_uom_qty = fields.Float(string='Quantity', required=True)
-    price_unit = fields.Float(string='Unit Price', required=True)
-
-
-
     @api.depends('order_line.price_total')
     def _amount_all(self):
         for order in self:
@@ -155,7 +149,9 @@ class PurchaseOrder(models.Model):
     receipt_reminder_email = fields.Boolean('Receipt Reminder Email', compute='_compute_receipt_reminder_email')
     reminder_date_before_receipt = fields.Integer('Days Before Receipt', compute='_compute_receipt_reminder_email')
     po_created = fields.Char(string='PO Created')
-    @api.constrains('company_id', 'order_line')
+    picking_type_id = fields.Char(string='Picking type ID')
+    group_id = fields.Char(string='Group ID')
+
     def _check_order_line_company_id(self):
         for order in self:
             invalid_companies = order.order_line.product_id.company_id.filtered(
@@ -430,7 +426,9 @@ class PurchaseOrder(models.Model):
         ir_model_data = self.env['ir.model.data']
         try:
             if self.env.context.get('send_rfq', False):
-                template_id = ir_model_data._xmlid_lookup('purchase.email_template_rfq_edi_purchase')[1]
+                template_id = ir_model_data._xmlid_lookup('purchase.email_template_edi_purchase')[1]
+            else:
+                template_id = ir_model_data._xmlid_lookup('purchase.email_template_edi_purchase_done')[1]
         except ValueError:
             template_id = False
         try:

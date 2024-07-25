@@ -17,7 +17,6 @@
 # Martin Trigaux, 2023
 # Gökhan Erdoğdu <gokhan.erdogdu@mechsoft.com.tr>, 2023
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2024
 # Mehmet YAYLA, 2024
 # 
 msgid ""
@@ -247,7 +246,7 @@ msgstr "Takma Alan Adı"
 #. module: mail_group
 #: model:ir.model.fields,field_description:mail_group.field_mail_group__alias_full_name
 msgid "Alias Email"
-msgstr "Rumuz E-Posta"
+msgstr ""
 
 #. module: mail_group
 #: model:ir.model.fields,field_description:mail_group.field_mail_group__alias_name
@@ -257,12 +256,12 @@ msgstr "Rumuz Adı"
 #. module: mail_group
 #: model:ir.model.fields,field_description:mail_group.field_mail_group__alias_status
 msgid "Alias Status"
-msgstr "Takma Ad Durumu"
+msgstr ""
 
 #. module: mail_group
 #: model:ir.model.fields,help:mail_group.field_mail_group__alias_status
 msgid "Alias status assessed on the last message received."
-msgstr "Alınan son mesajda değerlendirilen takma ad durumu."
+msgstr ""
 
 #. module: mail_group
 #: model:ir.model.fields,field_description:mail_group.field_mail_group__alias_model_id
@@ -1481,7 +1480,7 @@ msgstr "örneğin \"Haber Bülteni\""
 #. module: mail_group
 #: model_terms:ir.ui.view,arch_db:mail_group.mail_group_view_form
 msgid "e.g. domain.com"
-msgstr "e.g. alanadı.com"
+msgstr ""
 
 #. module: mail_group
 #: model_terms:ir.ui.view,arch_db:mail_group.mail_group_message_view_search

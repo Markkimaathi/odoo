@@ -484,7 +484,9 @@ msgstr "<span name=\"failed_text\">correo(s) no enviado(s).</span>"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 msgid "<span name=\"failed_text\">emails could not be sent.</span>"
-msgstr "<span name=\"failed_text\">correos que no se pudieron enviar.</span>"
+msgstr ""
+"<span name=\"failed_text\">No se pudieron enviar los correos "
+"electrónicos.</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -533,7 +535,7 @@ msgstr ""
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 msgid "<span name=\"sent\">emails have been sent.</span>"
-msgstr "<span name=\"sent\">correos enviados.</span>"
+msgstr "<span name=\"sent\">se enviaron los correos.</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.digest_mail_main
@@ -3737,7 +3739,7 @@ msgstr ""
 "Idioma de traducción opcional (código ISO) a seleccionar para el envío de "
 "correos electrónicos. Si no se selecciona esta opción, se utilizará la "
 "versión en inglés. Por lo general, se usa una expresión de marcador de "
-"posición para indicar el idioma adecuado, por ejemplo, {{ "
+"posición para indicar el idioma adecuado, por ejemplo, ${{ "
 "object.partner_id.lang }}."
 
 #. module: mass_mailing

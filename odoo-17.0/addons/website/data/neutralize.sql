@@ -10,7 +10,3 @@ UPDATE ir_ui_view
 -- disable cdn
 UPDATE website
    SET cdn_activated = false;
-
--- Update robots.txt to disallow all crawling
-UPDATE website
-   SET robots_txt = E'User-agent: *\nDisallow: /';

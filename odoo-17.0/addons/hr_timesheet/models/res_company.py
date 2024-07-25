@@ -55,8 +55,7 @@ class ResCompany(models.Model):
 
     def _create_internal_project_task(self):
         results = []
-        type_ids_ref = self.env.ref('hr_timesheet.internal_project_default_stage', raise_if_not_found=False)
-        type_ids = [(4, type_ids_ref.id)] if type_ids_ref else []
+        type_ids = [(4, self.env.ref('hr_timesheet.internal_project_default_stage').id)]
         for company in self:
             company = company.with_company(company)
             results += [{

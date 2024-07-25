@@ -2432,7 +2432,7 @@ msgstr "Emisión pronosticada"
 #: code:addons/mrp/static/src/components/bom_overview_table/mrp_bom_overview_table.xml:0
 #, python-format
 msgid "Free to Use"
-msgstr "Disponible para uso"
+msgstr "Libre de usar"
 
 #. module: mrp
 #. odoo-javascript
@@ -2440,7 +2440,7 @@ msgstr "Disponible para uso"
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 #, python-format
 msgid "Free to Use / On Hand"
-msgstr "Disponible para uso/disponible"
+msgstr "Libre de usar/disponible"
 
 #. module: mrp
 #. odoo-javascript
@@ -2448,7 +2448,7 @@ msgstr "Disponible para uso/disponible"
 #: model_terms:ir.ui.view,arch_db:mrp.mo_overview_content
 #, python-format
 msgid "Free to use / On Hand"
-msgstr "Disponible para uso/disponible"
+msgstr "Libre de usar/disponible"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
@@ -3295,7 +3295,7 @@ msgstr "Regla de fabricación"
 #: code:addons/mrp/models/stock_rule.py:0
 #, python-format
 msgid "Manufacture Security Lead Time"
-msgstr "Plazo de seguridad para fabricación"
+msgstr "Plazo de entrega seguro de fabricación"
 
 #. module: mrp
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_bom__type__normal
@@ -4422,7 +4422,8 @@ msgstr "Etiquetas de producto"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_res_config_settings__module_mrp_plm
 msgid "Product Lifecycle Management (PLM)"
-msgstr "Gestión del ciclo de vida del producto (PLM)"
+msgstr ""
+"Gestión del ciclo de vida del producto (PLM, por sus siglas en inglés)"
 
 #. module: mrp
 #: model:ir.model,name:mrp.model_stock_move_line
@@ -5049,7 +5050,7 @@ msgstr "Seleccione operaciones para copiar"
 #: code:addons/mrp/models/mrp_production.py:0
 #, python-format
 msgid "Selection not supported."
-msgstr "Selección incompatible."
+msgstr "Selección no compatible."
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom__sequence

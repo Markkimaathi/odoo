@@ -184,7 +184,7 @@ msgstr "Orden"
 #: code:addons/spreadsheet_dashboard_sale/data/files/sales_dashboard.json:0
 #, python-format
 msgid "Orders"
-msgstr "Pedidos"
+msgstr "Órdenes"
 
 #. module: spreadsheet_dashboard_sale
 #. odoo-javascript
@@ -433,7 +433,7 @@ msgstr "Recursos principales"
 #: code:addons/spreadsheet_dashboard_sale/data/files/sales_dashboard.json:0
 #, python-format
 msgid "Total orders"
-msgstr "Total de pedidos"
+msgstr "Total de órdenes"
 
 #. module: spreadsheet_dashboard_sale
 #. odoo-javascript

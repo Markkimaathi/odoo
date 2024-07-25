@@ -948,7 +948,7 @@ msgstr "<i>Instant setup, satisfied or reimbursed.</i>"
 #: code:addons/website/controllers/form.py:0
 #, python-format
 msgid "<p>Attached files: </p>"
-msgstr "<p>Priložene datoteke : </p>"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
@@ -10350,7 +10350,7 @@ msgstr "Prikaži zemljevid spletnega mesta"
 #: code:addons/website/static/src/snippets/s_popup/000.js:0
 #, python-format
 msgid "Show the cookies bar"
-msgstr "Prikaži vrstico s piškotki"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options

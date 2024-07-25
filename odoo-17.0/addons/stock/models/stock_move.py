@@ -2113,8 +2113,6 @@ Please change the quantity done or the rounding precision of your unit of measur
                 ('location_id', 'parent_of', move.location_id.id),
                 ('company_id', '=', move.company_id.id),
                 '!', ('location_id', 'parent_of', move.location_dest_id.id),
-                '|', ('snoozed_until', '=', False),
-                ('snoozed_until', '<=', fields.Date.today()),
             ], limit=1)
             if orderpoint:
                 orderpoints_by_company[orderpoint.company_id] |= orderpoint
@@ -2139,28 +2137,8 @@ Please change the quantity done or the rounding precision of your unit of measur
                          ('procure_method', '=', 'make_to_stock'),
                          ('reservation_date', '<=', fields.Date.today())]
         moves_to_reserve = self.env['stock.move'].search(expression.AND([static_domain, expression.OR(domains)]),
-                                                         order='priority desc, date asc, id asc')
+                                                         order='reservation_date, priority desc, date asc, id asc')
         moves_to_reserve._action_assign()
-
-    def _rollup_move_dests_fetch(self):
-        seen = set(self.ids)
-        self.fetch(['move_dest_ids'])
-        move_dest_ids = set(self.move_dest_ids.ids)
-        while not move_dest_ids.issubset(seen):
-            seen |= move_dest_ids
-            to_visit = self.browse(move_dest_ids)
-            to_visit.fetch(['move_dest_ids'])
-            move_dest_ids = set(to_visit.move_dest_ids.ids)
-
-    def _rollup_move_origs_fetch(self):
-        seen = set(self.ids)
-        self.fetch(['move_orig_ids'])
-        move_orig_ids = set(self.move_orig_ids.ids)
-        while not move_orig_ids.issubset(seen):
-            seen |= move_orig_ids
-            to_visit = self.browse(move_orig_ids)
-            to_visit.fetch(['move_orig_ids'])
-            move_orig_ids = set(to_visit.move_orig_ids.ids)
 
     def _rollup_move_dests(self, seen=False):
         if not seen:

@@ -5098,48 +5098,6 @@ class StockMove(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, 'done')
 
-    def test_scrap_11(self):
-        """ Use a sublocation as scrap location.
-        When moving the product back to stock ensure
-        the quant is not edited expect on quantity
-        """
-        # 10 units are available in stock
-        self.env['stock.quant']._update_available_quantity(self.product, self.stock_location, 10)
-        scrap_location = self.env['stock.location'].create({
-            'name': 'Scrap',
-            'location_id': self.stock_location.id,
-            'usage': 'internal',
-            'scrap_location': True,
-        })
-        self.env['stock.quant']._update_available_quantity(self.product, scrap_location, 10)
-        picking = self.env['stock.picking'].create({
-            'name': 'A single picking with one move to scrap',
-            'location_id': self.stock_location.id,
-            'location_dest_id': self.stock_location.id,
-            'picking_type_id': self.env.ref('stock.picking_type_out').id,
-        })
-        move = self.env['stock.move'].create({
-            'name': 'A move to confirm and scrap its product',
-            'location_id': self.stock_location.id,
-            'location_dest_id': self.stock_location.id,
-            'product_id': self.product.id,
-            'product_uom_qty': 10.0,
-            'picking_id': picking.id,
-        })
-        picking.action_confirm()
-        self.assertEqual(move.quantity, 10)
-        move.move_line_ids.location_id = scrap_location
-
-        picking.button_validate()
-        self.assertEqual(picking.state, 'done')
-
-        # Check the quant
-        quant = self.env['stock.quant']._gather(self.product, self.stock_location, strict=True)
-        quant_scrap = self.env['stock.quant']._gather(self.product, scrap_location)
-        self.assertEqual(quant.quantity, 20)
-        self.assertFalse(quant_scrap.reserved_quantity)
-        self.assertFalse(quant_scrap.quantity)
-
     def test_in_date_1(self):
         """ Check that moving a tracked quant keeps the incoming date.
         """
@@ -6509,33 +6467,3 @@ class StockMove(TransactionCase):
         ml.write({'product_uom_id': self.uom_unit.id})
         self.assertEqual(quant.reserved_quantity, 2)
         self.assertEqual(ml.quantity * self.uom_unit.ratio, 2)
-
-    def test_move_line_qty_with_quant_in_different_uom(self):
-        """
-        Check that the reserved_quantity of the quant is correctly calculated
-        when the move line is in different UOM.
-        - Quant: 100 units tracked with "Lot 1"
-        - Move: 1 dozen
-        the reserved qty should be 12 units in the quant.
-        """
-        Quant = self.env['stock.quant']
-        lot1 = self.env['stock.lot'].create({
-            'name': 'lot1',
-            'product_id': self.product_lot.id,
-        })
-        move = self.env['stock.move'].create({
-            'name': 'Test move',
-            'product_id': self.product_lot.id,
-            'product_uom_qty': 1,
-            'product_uom': self.uom_dozen.id,
-            'location_id': self.stock_location.id,
-            'location_dest_id': self.customer_location.id,
-        })
-        move._action_confirm()
-        Quant._update_available_quantity(self.product_lot, self.stock_location, 100, lot_id=lot1)
-        quant = Quant._gather(self.product_lot, self.stock_location)
-        move_form = Form(move, view='stock.view_stock_move_operations')
-        with move_form.move_line_ids.new() as ml:
-            ml.quant_id = quant
-        move = move_form.save()
-        self.assertEqual(quant.reserved_quantity, 12)

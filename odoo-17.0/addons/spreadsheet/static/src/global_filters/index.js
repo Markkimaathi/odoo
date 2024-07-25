@@ -63,15 +63,6 @@ inverseCommandRegistry
                 filter: {},
             },
         ];
-    })
-    .add("MOVE_GLOBAL_FILTER", (cmd) => {
-        return [
-            {
-                type: "MOVE_GLOBAL_FILTER",
-                id: cmd.id,
-                delta: cmd.delta * -1,
-            },
-        ];
     });
 
 export { GlobalFiltersCorePlugin, GlobalFiltersUIPlugin };

@@ -11,8 +11,3 @@ class LoyaltyReward(models.Model):
         for vals in res:
             vals.update({'taxes_id': False})
         return res
-
-    def unlink(self):
-        if len(self) == 1 and self.env['pos.order.line'].search_count([('reward_id', 'in', self.ids)], limit=1):
-            return self.action_archive()
-        return super().unlink()

@@ -224,15 +224,17 @@ export class ListDataSource extends OdooViewsDataSource {
 
     _formatDateTime(dateValue) {
         const date = deserializeDateTime(dateValue);
-        return formatDateTime(date.reconfigure({ numberingSystem: "latn" }), {
+        return formatDateTime(date, {
             format: "yyyy-MM-dd HH:mm:ss",
+            numberingSystem: "latn",
         });
     }
 
     _formatDate(dateValue) {
         const date = deserializeDate(dateValue);
-        return formatDate(date.reconfigure({ numberingSystem: "latn" }), {
+        return formatDate(date, {
             format: "yyyy-MM-dd",
+            numberingSystem: "latn",
         });
     }
 

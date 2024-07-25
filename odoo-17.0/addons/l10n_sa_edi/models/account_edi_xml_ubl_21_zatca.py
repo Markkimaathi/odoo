@@ -97,7 +97,7 @@ class AccountEdiXmlUBL21Zatca(models.AbstractModel):
     def _get_partner_contact_vals(self, partner):
         res = super()._get_partner_contact_vals(partner)
         if res.get('telephone'):
-            res['telephone'] = re.sub(r"[^+\d]", '', res['telephone'])
+            res['telephone'] = res['telephone'].replace(' ', '')
         return res
 
     def _get_partner_party_identification_vals_list(self, partner):
@@ -393,11 +393,8 @@ class AccountEdiXmlUBL21Zatca(models.AbstractModel):
         def _exemption_reason(code, reason):
             return {
                 'tax_category_code': code,
-                'tax_exemption_reason_code': reason or "VATEX-SA-OOS",
-                'tax_exemption_reason': (
-                    exemption_codes[reason].split(reason)[1].lstrip()
-                    if reason else "Not subject to VAT"
-                )
+                'tax_exemption_reason_code': reason,
+                'tax_exemption_reason': exemption_codes[reason].split(reason)[1].lstrip(),
             }
 
         supplier = invoice.company_id.partner_id.commercial_partner_id
@@ -409,7 +406,11 @@ class AccountEdiXmlUBL21Zatca(models.AbstractModel):
                 elif tax.l10n_sa_exemption_reason_code in TAX_ZERO_RATE_CODES:
                     return _exemption_reason('Z', tax.l10n_sa_exemption_reason_code)
                 else:
-                    return _exemption_reason('O', tax.l10n_sa_exemption_reason_code)
+                    return {
+                        'tax_category_code': 'O',
+                        'tax_exemption_reason_code': 'Not subject to VAT',
+                        'tax_exemption_reason': 'Not subject to VAT',
+                    }
             else:
                 return {
                     'tax_category_code': 'S',

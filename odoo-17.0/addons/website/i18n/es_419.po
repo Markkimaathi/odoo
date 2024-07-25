@@ -530,7 +530,7 @@ msgstr ""
 #: code:addons/website/static/src/js/tours/tour_utils.js:0
 #, python-format
 msgid "<b>Add</b> the selected image."
-msgstr "<b>Agregue</b> la imagen seleccionada."
+msgstr "<b>Agregar</b> la imagen seleccionada."
 
 #. module: website
 #. odoo-javascript
@@ -5186,7 +5186,7 @@ msgstr "Tabla de funciones"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_dynamic_snippet_options_template
 msgid "Fetched elements"
-msgstr "Elementos obtenidos"
+msgstr "Elementos recolectados"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_snippet_filter__field_names
@@ -6081,7 +6081,7 @@ msgstr "Ocultar para"
 #: code:addons/website/static/src/snippets/s_popup/000.js:0
 #, python-format
 msgid "Hide the cookies bar"
-msgstr "Ocultar la barra de cookies"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_page_properties_view_form
@@ -7592,7 +7592,7 @@ msgstr "Márgenes"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
 msgid "Mark Text"
-msgstr "Indicador de texto"
+msgstr "Marcar texto"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -8545,7 +8545,7 @@ msgstr "Cuando se desliza"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
 msgid "On Success"
-msgstr "Al enviar"
+msgstr "Éxito"
 
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__website__auth_signup_uninvited__b2b
@@ -8630,9 +8630,9 @@ msgstr ""
 "la vista primaria más cercana (via inherit_id), y luego se aplica a todas las vistas\n"
 "que hereden de ella\n"
 "* Si es primaria, la vista primaria más cercana se resuelve completamente (incluso si utiliza un\n"
-"modelo diferente a este), las especificaciones de herencia se aplican después \n"
+"modelo diferente a este), y más tarde se aplican las especificaciones de herencia\n"
 "(<xpath/>) y el resultado se utiliza como si fuera la arquitectura real\n"
-"de esta vista.\n"
+"de la vista.\n"
 
 #. module: website
 #. odoo-javascript
@@ -10114,7 +10114,7 @@ msgstr "Zona de desplazamiento"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Scroll down button"
-msgstr "Botón para desplazarse hacia abajo"
+msgstr "Botón inferior de desplazamiento"
 
 #. module: website
 #. odoo-javascript
@@ -10535,7 +10535,7 @@ msgstr "Mostrar mapa del sitio"
 #: code:addons/website/static/src/snippets/s_popup/000.js:0
 #, python-format
 msgid "Show the cookies bar"
-msgstr "Mostrar la barra de cookies"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -11526,7 +11526,7 @@ msgstr "Vista de interfaz del tema"
 #. module: website
 #: model:ir.model,name:website.model_theme_utils
 msgid "Theme Utils"
-msgstr "Herramientas del tema"
+msgstr "Utilidades del tema"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.list_website_public_pages
@@ -13145,7 +13145,7 @@ msgstr "Menú del sitio web"
 #: model:ir.model.fields,field_description:website.field_website_page__website_meta_description
 #: model:ir.model.fields,field_description:website.field_website_seo_metadata__website_meta_description
 msgid "Website meta description"
-msgstr "Meta descripción del sitio web"
+msgstr "Descripción meta del sitio web"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_ir_ui_view__website_meta_keywords
@@ -13161,7 +13161,7 @@ msgstr "Palabras clave meta del sitio web"
 #: model:ir.model.fields,field_description:website.field_website_page__website_meta_title
 #: model:ir.model.fields,field_description:website.field_website_seo_metadata__website_meta_title
 msgid "Website meta title"
-msgstr "Meta título del sitio web"
+msgstr "Título  meta del sitio web"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_ir_ui_view__website_meta_og_img

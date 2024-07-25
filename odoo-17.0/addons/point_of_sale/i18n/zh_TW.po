@@ -6,7 +6,6 @@
 # 敬雲 林 <chingyun@yuanchih-consult.com>, 2023
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Pak Wai Ho, 2024
 # Tony Ng, 2024
 # 
 msgid ""
@@ -2571,7 +2570,7 @@ msgstr "錯誤"
 #: code:addons/point_of_sale/static/src/app/errors/popups/error_traceback_popup.js:0
 #, python-format
 msgid "Error with Traceback"
-msgstr "錯誤與追溯"
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-python
@@ -3694,7 +3693,7 @@ msgstr "時段允許多員工"
 #: code:addons/point_of_sale/static/src/app/screens/ticket_screen/ticket_screen.js:0
 #, python-format
 msgid "Multiple Invoiced Orders Selected"
-msgstr "選擇了多個已開發票訂單"
+msgstr ""
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__my_activity_date_deadline
@@ -6101,7 +6100,7 @@ msgstr "掃瞄儀"
 #: code:addons/point_of_sale/static/src/app/screens/partner_list/partner_list.xml:0
 #, python-format
 msgid "Search Customers..."
-msgstr "搜尋客戶..."
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -7035,7 +7034,7 @@ msgstr "因為未知錯誤，訂單不能發送到伺服器"
 #: code:addons/point_of_sale/static/src/app/screens/product_screen/product_screen.js:0
 #, python-format
 msgid "The order has been already paid."
-msgstr "訂單已付款。"
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -7780,7 +7779,7 @@ msgstr "單價"
 #: code:addons/point_of_sale/static/src/app/barcode/error_popup/barcode_error_popup.xml:0
 #, python-format
 msgid "Unknown Barcode:"
-msgstr "未知條碼:"
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -8144,7 +8143,7 @@ msgstr "您已為%s付款方式啟用了\"識別客戶\"選項，但訂單 %s �
 msgid ""
 "You have selected orderlines from multiple invoiced orders. To proceed "
 "refund, please select orderlines from the same invoiced order."
-msgstr "您選擇了來自多張發票的訂單行。如要進行退款，請選擇同一張發票的訂單行。"
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -8202,7 +8201,7 @@ msgstr "您需要為您的銷售營業點指定一個POS。"
 #: code:addons/point_of_sale/static/src/app/errors/popups/offline_error_popup.js:0
 #, python-format
 msgid "You're offline"
-msgstr "你已離線"
+msgstr ""
 
 #. module: point_of_sale
 #. odoo-javascript

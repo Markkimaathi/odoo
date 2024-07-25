@@ -554,14 +554,17 @@ msgstr ""
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_register_form
-msgid ""
-"<b>Early Payment Discount of %(payment_reference) has been applied.</b>"
-msgstr ""
+msgid "<b>Early Payment Discount applied.</b>"
+msgstr "<b>Tidig betalningsrabatt tillämpad.</b>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
-msgid "<br/> on this account:"
+msgid ""
+"<br/>\n"
+"                            on this account:"
 msgstr ""
+"<br/>\n"
+"                            på detta konto:"
 
 #. module: account
 #: model:mail.template,body_html:account.email_template_edi_credit_note
@@ -8047,10 +8050,8 @@ msgstr "Ogiltig"
 #. odoo-python
 #: code:addons/account/models/partner.py:0
 #, python-format
-msgid ""
-"Invalid \"Zip Range\", You have to configure both \"From\" and \"To\" values"
-" for the zip range and \"To\" should be greater than \"From\"."
-msgstr ""
+msgid "Invalid \"Zip Range\", please configure it properly."
+msgstr "Felaktigt \"Postnummerintervall\", vänligen konfigurera det korrekt."
 
 #. module: account
 #. odoo-python
@@ -13903,13 +13904,6 @@ msgid "Text Value"
 msgstr "Textvärde"
 
 #. module: account
-#. odoo-javascript
-#: code:addons/account/static/src/components/document_state/document_state_field.js:0
-#, python-format
-msgid "Text copied"
-msgstr ""
-
-#. module: account
 #: model:ir.model.fields,help:account.field_res_company__account_opening_date
 msgid "That is the date of the opening entry."
 msgstr "Det är datumet för öppningsinlägget."
@@ -16770,7 +16764,7 @@ msgstr ""
 
 #. module: account
 #. odoo-python
-#: code:addons/account/models/account_journal.py:0
+#: code:addons/account/models/account_payment_method.py:0
 #, python-format
 msgid ""
 "You can't have two payment method lines of the same payment type (%s) and "

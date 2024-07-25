@@ -34,7 +34,7 @@ QUnit.module("Components", (hooks) => {
 
     QUnit.module("ConfirmationDialog");
 
-    QUnit.test("Without dismiss callback pressing escape to close the dialog", async function (assert) {
+    QUnit.test("pressing escape to close the dialog", async function (assert) {
         const env = await makeDialogTestEnv();
         await mount(ConfirmationDialog, target, {
             env,
@@ -44,9 +44,7 @@ QUnit.module("Components", (hooks) => {
                 close: () => {
                     assert.step("Close action");
                 },
-                confirm: () => {
-                    throw new Error("should not be called");
-                },
+                confirm: () => {},
                 cancel: () => {
                     assert.step("Cancel action");
                 },
@@ -58,91 +56,6 @@ QUnit.module("Components", (hooks) => {
         assert.verifySteps(
             ["Cancel action", "Close action"],
             "dialog has called its cancel method before its closure"
-        );
-    });
-
-    QUnit.test("With dismiss callback: pressing escape to close the dialog", async function (assert) {
-        const env = await makeDialogTestEnv();
-        await mount(ConfirmationDialog, target, {
-            env,
-            props: {
-                body: "Some content",
-                title: "Confirmation",
-                close: () => {
-                    assert.step("Close action");
-                },
-                confirm: () => {
-                    throw new Error("should not be called");
-                },
-                cancel: () => {
-                    throw new Error("should not be called");
-                },
-                dismiss: () => {
-                    assert.step("Dismiss action");
-                },
-            },
-        });
-        assert.verifySteps([]);
-        triggerHotkey("escape");
-        await nextTick();
-        assert.verifySteps(
-            ["Dismiss action", "Close action"],
-            "dialog has called its dismiss method before its closure"
-        );
-    });
-
-    QUnit.test("Without dismiss callback: clicking on 'X' to close the dialog", async function (assert) {
-        const env = await makeDialogTestEnv();
-        await mount(ConfirmationDialog, target, {
-            env,
-            props: {
-                body: "Some content",
-                title: "Confirmation",
-                close: () => {
-                    assert.step("Close action");
-                },
-                confirm: () => {
-                    throw new Error("should not be called");
-                },
-                cancel: () => {
-                    assert.step("Cancel action");
-                },
-            },
-        });
-        assert.verifySteps([]);
-        await click(target, ".modal-header .btn-close");
-        assert.verifySteps(
-            ["Cancel action", "Close action"],
-            "dialog has called its cancel method before its closure"
-        );
-    });
-
-    QUnit.test("With dismiss callback: clicking on 'X' to close the dialog", async function (assert) {
-        const env = await makeDialogTestEnv();
-        await mount(ConfirmationDialog, target, {
-            env,
-            props: {
-                body: "Some content",
-                title: "Confirmation",
-                close: () => {
-                    assert.step("Close action");
-                },
-                confirm: () => {
-                    throw new Error("should not be called");
-                },
-                cancel: () => {
-                    throw new Error("should not be called");
-                },
-                dismiss: () => {
-                    assert.step("Dismiss action");
-                },
-            },
-        });
-        assert.verifySteps([]);
-        await click(target, ".modal-header .btn-close");
-        assert.verifySteps(
-            ["Dismiss action", "Close action"],
-            "dialog has called its dismiss method before its closure"
         );
     });
 
@@ -160,9 +73,6 @@ QUnit.module("Components", (hooks) => {
                     assert.step("Confirm action");
                 },
                 cancel: () => {
-                    throw new Error("should not be called");
-                },
-                dismiss: () => {
                     throw new Error("should not be called");
                 },
             },
@@ -187,9 +97,6 @@ QUnit.module("Components", (hooks) => {
                 },
                 cancel: () => {
                     assert.step("Cancel action");
-                },
-                dismiss: () => {
-                    throw new Error("should not be called");
                 },
             },
         });

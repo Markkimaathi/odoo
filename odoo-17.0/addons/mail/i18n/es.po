@@ -3676,8 +3676,6 @@ msgid ""
 "Field “%(field)s” on model “%(model)s” must be of type Many2one and have "
 "tracking=True for the computation of duration."
 msgstr ""
-"El campo \"%(field)s\" en el modelo \"%(model)s\" debe ser del tipo Many2one"
-" y debe tener tracking=True para el cálculo de la duración."
 
 #. module: mail
 #. odoo-python
@@ -6813,7 +6811,7 @@ msgstr "Operación no admitida"
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__mail_mail__failure_type__mail_optout
 msgid "Opted Out"
-msgstr "Exclusión voluntaria"
+msgstr "Canceló"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_alias__alias_force_thread_id
@@ -6927,7 +6925,7 @@ msgstr "Servidor de correo de salida"
 #: model:ir.model.fields.selection,name:mail.selection__res_partner__activity_state__overdue
 #, python-format
 msgid "Overdue"
-msgstr "De retraso"
+msgstr "Vencidas"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.email_template_form
@@ -7042,7 +7040,7 @@ msgstr "Dispositivo push del contacto web"
 #. module: mail
 #: model:ir.model,name:mail.model_mail_resend_partner
 msgid "Partner with additional information for mail resend"
-msgstr "Contacto con información adicional para el reenvío del correo"
+msgstr "Asóciese con información adicional para reenviar correo"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_discuss_channel__channel_partner_ids
@@ -7080,7 +7078,7 @@ msgstr "Carga efectiva"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.email_template_form
 msgid "Permanently delete this template"
-msgstr "Eliminar permanentemente esta plantilla"
+msgstr "Eliminar esta plantilla de forma permanente"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_res_partner__phone
@@ -7401,7 +7399,7 @@ msgstr "Contrato de garantía del editor"
 #. module: mail
 #: model:ir.actions.server,name:mail.ir_cron_module_update_notification_ir_actions_server
 msgid "Publisher: Update Notification"
-msgstr "Editor: actualizar la notificación"
+msgstr "Editor: Actualizar la notificación"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_res_users_settings__push_to_talk_key
@@ -7507,7 +7505,7 @@ msgstr "Listo para enviar"
 #: model:ir.model.fields,field_description:mail.field_mail_blacklist_remove__reason
 #: model_terms:ir.ui.view,arch_db:mail.mail_blacklist_remove_view_form
 msgid "Reason"
-msgstr "Razón"
+msgstr "Motivo"
 
 #. module: mail
 #: model:res.groups,name:mail.group_mail_notification_type_inbox
@@ -7731,7 +7729,7 @@ msgstr "Renombrar"
 #: model:ir.model.fields,field_description:mail.field_mail_render_mixin__render_model
 #: model:ir.model.fields,field_description:mail.field_mail_template__render_model
 msgid "Rendering Model"
-msgstr "Modelo de visualización"
+msgstr "Modelo de renderización"
 
 #. module: mail
 #. odoo-python
@@ -8206,7 +8204,7 @@ msgstr "Actualización de seguridad: correo electrónico cambiado"
 #: code:addons/mail/models/res_users.py:0
 #, python-format
 msgid "Security Update: Login Changed"
-msgstr "Actualización de seguridad: nombre de usuario cambiado"
+msgstr "Actualización de seguridad: cambió el inicio de sesión"
 
 #. module: mail
 #. odoo-python
@@ -8373,7 +8371,7 @@ msgstr "Secuencia"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_email_server_form
 msgid "Server & Login"
-msgstr "Servidor e inicio de sesión"
+msgstr "Servidor e Inicio de sesión"
 
 #. module: mail
 #: model:ir.model,name:mail.model_ir_actions_server
@@ -8715,7 +8713,7 @@ msgid ""
 "Planned: Future activities."
 msgstr ""
 "Estado basado en actividades\n"
-"De retraso: la fecha límite ya ha pasado\n"
+"Vencida: la fecha límite ya ha pasado\n"
 "Hoy: la fecha límite es hoy\n"
 "Planificada: actividades futuras."
 
@@ -8992,8 +8990,8 @@ msgid ""
 "Template rendering supports only inline_template, qweb, or qweb_view (view "
 "or raw); received %(engine)s instead."
 msgstr ""
-"La visualización de plantillas sólo admite inline_template, qweb o qweb_view"
-" (vista o bruto); en cambio, recibió %(engine)s."
+"El renderizado de plantillas sólo admite inline_template, qweb o qweb_view "
+"(vista o bruto); %(engine)sen cambio, recibió"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.email_template_form
@@ -9051,7 +9049,7 @@ msgstr "Contenidos del texto"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_bounce_catchall
 msgid "The"
-msgstr "El equipo de"
+msgstr "El"
 
 #. module: mail
 #. odoo-python
@@ -9739,7 +9737,7 @@ msgstr "Eliminar de la lista negra"
 #: code:addons/mail/wizard/mail_blacklist_remove.py:0
 #, python-format
 msgid "Unblock Reason: %(reason)s"
-msgstr "Razón de desbloqueo: %(reason)s"
+msgstr "Motivo de desbloqueo: %(reason)s"
 
 #. module: mail
 #. odoo-javascript
@@ -9835,7 +9833,7 @@ msgstr "Archivos adjuntos sin restricción"
 #: code:addons/mail/static/src/core/web/thread_actions.js:0
 #, python-format
 msgid "Unstar all"
-msgstr "Quitar todos de favoritos"
+msgstr "Desmarcar todos"
 
 #. module: mail
 #. odoo-python
@@ -10014,7 +10012,7 @@ msgstr ""
 #: model:ir.model.fields,help:mail.field_mail_tracking_value__currency_id
 msgid "Used to display the currency when tracking monetary values"
 msgstr ""
-"Utilizado para mostrar la moneda cuando se hace un seguimiento de los "
+"Se utiliza para mostrar la divisa cuando se hace un seguimiento de los "
 "valores monetarios"
 
 #. module: mail
@@ -10039,7 +10037,7 @@ msgstr "Campo de usuario"
 #. module: mail
 #: model:ir.model,name:mail.model_bus_presence
 msgid "User Presence"
-msgstr "Conexión del usuario"
+msgstr "Usuario conectado"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_res_users_settings_volumes__user_setting_id
@@ -10158,7 +10156,7 @@ msgid ""
 "Value %(allowed_domains)s for `mail.catchall.domain.allowed` cannot be validated.\n"
 "It should be a comma separated list of domains e.g. example.com,example.org."
 msgstr ""
-"No se puede validar el valor %(allowed_domains)s para `mail.catchall.domain.allowed`.\n"
+"No se puede validar el valor %(allowed_domains)s de `mail.catchall.domain.allowed`.\n"
 "Debe ser una lista de dominios separados por comas, p. ej. ejemplo.com,ejemplo.org."
 
 #. module: mail
@@ -10323,7 +10321,7 @@ msgstr "Semanas"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 msgid "Welcome to MyCompany!"
-msgstr "¡Le damos la bienvenida a MiCompañía!"
+msgstr "¡Bienvenido a MiEmpresa!"
 
 #. module: mail
 #. odoo-javascript
@@ -10955,8 +10953,8 @@ msgstr "p. ej. \"Correo de bienvenida\""
 #: model_terms:ir.ui.view,arch_db:mail.mail_compose_message_view_form_template_save
 msgid "e.g. \"Welcome to MyCompany\" or \"Nice to meet you, {{ object.name }}\""
 msgstr ""
-"por ejemplo:  \"Le damos la bienvenida a MiCompañía\" o \"Gusto en "
-"conocerlo, {{ object.name }}\""
+"por ejemplo:  \"Bienvenido a MiEmpresa\" o \"Gusto en conocerlo, {{ "
+"object.name }}\""
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_alias_domain_view_form
@@ -11057,7 +11055,7 @@ msgstr "ha sido modificado de:"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.message_activity_assigned
 msgid "has just assigned you the following activity:"
-msgstr "acaba de asignar la siguiente actividad:"
+msgstr "le acaba de asignar la siguiente actividad:"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_content_filter
@@ -11192,7 +11190,7 @@ msgstr "ahora"
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_form
 #, python-format
 msgid "on"
-msgstr "el"
+msgstr "de"
 
 #. module: mail
 #. odoo-javascript
@@ -11243,7 +11241,7 @@ msgid ""
 "document creation"
 msgstr ""
 "responder al modelo %s que no acepta la actualización del documento, "
-"recurrir a la creación del documento"
+"retroceda en la creación de documentos"
 
 #. module: mail
 #. odoo-python
@@ -11295,7 +11293,7 @@ msgstr "modelo de destino no especificado"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_bounce_catchall
 msgid "team."
-msgstr "."
+msgstr "equipo."
 
 #. module: mail
 #. odoo-python
@@ -11358,7 +11356,7 @@ msgstr "usuarios"
 #: code:addons/mail/models/mail_thread.py:0
 #, python-format
 msgid "view"
-msgstr "ver"
+msgstr "vista "
 
 #. module: mail
 #: model:ir.model,name:mail.model_ir_websocket

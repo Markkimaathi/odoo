@@ -237,7 +237,7 @@ msgstr ""
 #: code:addons/base_vat/models/res_partner.py:0
 #, python-format
 msgid "VAT"
-msgstr "Número de identificación fiscal"
+msgstr "IVA"
 
 #. module: base_vat
 #: model:ir.model.fields,field_description:base_vat.field_res_company__vat_check_vies

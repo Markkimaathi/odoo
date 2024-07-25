@@ -125,21 +125,6 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
     );
 
     QUnit.test(
-        "can get a Pivot from cell formula where the id is a reference in an inactive sheet",
-        async function (assert) {
-            const { model } = await createSpreadsheetWithPivot();
-            const firstSheetId = model.getters.getActiveSheetId();
-            model.dispatch("CREATE_SHEET", { sheetId: "2" });
-            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom: firstSheetId, sheetIdTo: "2" });
-            setCellContent(model, "A1", "1");
-            setCellContent(model, "A2", '=ODOO.PIVOT(A1,"probability")');
-            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom: "2", sheetIdTo: firstSheetId });
-            const pivotId = model.getters.getPivotIdFromPosition({ sheetId: "2", col: 0, row: 1 });
-            assert.strictEqual(pivotId, "1");
-        }
-    );
-
-    QUnit.test(
         "can select a Pivot from cell formula (Mix of test scenarios above)",
         async function (assert) {
             const { model } = await createSpreadsheetWithPivot({

@@ -65,7 +65,6 @@ export class FloorScreen extends Component {
         this.state.floorMapScrollTop = this.floorMapRef.el.getBoundingClientRect().top;
     }
     async onWillStart() {
-        this.pos.searchProductWord = "";
         const table = this.pos.table;
         if (table) {
             const orders = this.pos.get_order_list();

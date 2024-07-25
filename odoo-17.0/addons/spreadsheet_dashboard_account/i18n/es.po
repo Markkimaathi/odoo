@@ -50,7 +50,7 @@ msgstr "Importe"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Average Invoice"
-msgstr "Factura media"
+msgstr "Factura promedia"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -86,7 +86,7 @@ msgstr "Cliente"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "DSO"
-msgstr "Periodo medio de cobro"
+msgstr "DSO"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -141,14 +141,14 @@ msgstr "Facturación"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "KPI - Average Invoice"
-msgstr "KPI- factura media"
+msgstr "KPI-factura promedia"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "KPI - DSO"
-msgstr "KPI - periodo medio de cobro"
+msgstr "KPI - DSO"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -171,7 +171,7 @@ msgstr "KPI - número de facturas"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "KPI - Unpaid Invoices"
-msgstr "KPI - facturas no pagadas"
+msgstr "KPI - facturas sin pagar"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -203,7 +203,7 @@ msgstr "Categoría de producto"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Ratio"
-msgstr "Proporción"
+msgstr "Ratio"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -257,14 +257,14 @@ msgstr "Categorías principales"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Top Countries"
-msgstr "Países principales"
+msgstr "Países top"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Top Invoices"
-msgstr "Facturas principales"
+msgstr "Top Facturas"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -272,7 +272,7 @@ msgstr "Facturas principales"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Top Products"
-msgstr "Productos principales"
+msgstr "Top productos"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -280,7 +280,7 @@ msgstr "Productos principales"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "Top Salespeople"
-msgstr "Comerciales principales"
+msgstr "Mejores vendedores"
 
 #. module: spreadsheet_dashboard_account
 #. odoo-javascript
@@ -294,4 +294,4 @@ msgstr "en el año actual"
 #: code:addons/spreadsheet_dashboard_account/data/files/invoicing_dashboard.json:0
 #, python-format
 msgid "unpaid"
-msgstr "no pagado"
+msgstr "Sin pagar"

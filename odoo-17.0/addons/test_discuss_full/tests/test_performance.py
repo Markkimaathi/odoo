@@ -12,7 +12,7 @@ from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 
 @tagged('post_install', '-at_install')
 class TestDiscussFullPerformance(HttpCase):
-    _query_count = 63
+    _query_count = 62
 
     def setUp(self):
         super().setUp()
@@ -136,8 +136,6 @@ class TestDiscussFullPerformance(HttpCase):
 
             The point of having a separate getter is to allow it to be overriden.
         """
-        # sudo: bus.bus: reading non-sensitive last id
-        bus_last_id = self.env["bus.bus"].sudo()._bus_last_id()
         return {
             'action_discuss_id': self.env['ir.model.data']._xmlid_to_res_id('mail.action_discuss'),
             'initBusId': self.env['bus.bus'].sudo()._bus_last_id(),
@@ -184,7 +182,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_general.id,
                     'memberCount': len(self.group_user.users),
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.user_root.id,
                     'defaultDisplayMode': False,
@@ -240,7 +237,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_channel_public_1.id,
                     'memberCount': 5,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -296,7 +292,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_channel_public_2.id,
                     'memberCount': 5,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -352,7 +347,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_channel_group_1.id,
                     'memberCount': 5,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -408,7 +402,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_channel_group_2.id,
                     'memberCount': 5,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -491,7 +484,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_group_1.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -588,7 +580,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_chat_1.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -685,7 +676,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_chat_2.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -782,7 +772,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_chat_3.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -879,7 +868,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_chat_4.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.user.id,
                     'defaultDisplayMode': False,
@@ -972,7 +960,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_livechat_1.id,
                     'memberCount': 2,
                     'message_unread_counter': 0,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.users[1].id,
                     'defaultDisplayMode': False,
@@ -1060,7 +1047,6 @@ class TestDiscussFullPerformance(HttpCase):
                     'id': self.channel_livechat_2.id,
                     'memberCount': 2,
                     'message_unread_counter': 1,
-                    'message_unread_counter_bus_id': bus_last_id,
                     'model': "discuss.channel",
                     'create_uid': self.env.ref('base.public_user').id,
                     'defaultDisplayMode': False,

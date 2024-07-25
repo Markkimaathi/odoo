@@ -130,14 +130,14 @@ msgstr "El tipo de cuenta (ingresos, gastos, asset_current y más)."
 #: code:addons/spreadsheet_account/static/src/accounting_datasource.js:0
 #, python-format
 msgid "The company fiscal year could not be found."
-msgstr "No se pudo encontrar el ejercicio fiscal de la compañia."
+msgstr "El año de la compañia fiscal no pudo ser encontrada."
 
 #. module: spreadsheet_account
 #. odoo-javascript
 #: code:addons/spreadsheet_account/static/src/accounting_functions.js:0
 #, python-format
 msgid "The company to target (Advanced)."
-msgstr "La compañia objetivo (avanzado)."
+msgstr "La empresa objetivo (Avanzado)."
 
 #. module: spreadsheet_account
 #. odoo-javascript
@@ -145,7 +145,7 @@ msgstr "La compañia objetivo (avanzado)."
 #: code:addons/spreadsheet_account/static/src/accounting_functions.js:0
 #, python-format
 msgid "The company."
-msgstr "La compañía."
+msgstr "La empresa."
 
 #. module: spreadsheet_account
 #. odoo-javascript

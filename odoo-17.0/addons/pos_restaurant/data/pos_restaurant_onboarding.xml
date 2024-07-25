@@ -1,4 +1,4 @@
-<odoo noupdate="1">
+<odoo>
 
     <record id="drinks" model="pos.category">
         <field name="name">Drinks</field>

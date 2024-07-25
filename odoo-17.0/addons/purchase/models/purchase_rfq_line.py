@@ -15,20 +15,6 @@ class PurchaseOrderLine(models.Model):
     _description = 'Purchase Order Line'
     _order = 'order_id, sequence, id'
 
-    product_uom_qty = fields.Float(string='Quantity', required=True)
-    price_unit = fields.Float(string='Unit Price', required=True)
-    rfq_id = fields.Many2one('purchase.rfq', string='RFQ Reference')
-    move_dest_ids = fields.One2many('stock.move', 'name', string='Destination Moves')
-
-    purchase_request_lines = fields.Many2many(
-        'purchase.request.line',
-        'purchase_request_line_rfq_rel',
-        'rfq_line_id',
-        'request_line_id',
-        string='Purchase Request Lines'
-    )
-
-
     name = fields.Text(
         string='Description', required=True, compute='_compute_price_unit_and_date_planned_and_name', store=True, readonly=False)
     sequence = fields.Integer(string='Sequence', default=10)
@@ -90,7 +76,8 @@ class PurchaseOrderLine(models.Model):
     display_type = fields.Selection([
         ('line_section', "Section"),
         ('line_note', "Note")], default=False, help="Technical field for UX purpose.")
-
+    move_ids = fields.Char(string='Move ID')
+    move_dest_ids = fields.Char(string='Move dest ID')
     _sql_constraints = [
         ('accountable_required_fields',
             "CHECK(display_type IS NOT NULL OR (product_id IS NOT NULL AND product_uom IS NOT NULL AND date_planned IS NOT NULL))",
@@ -671,5 +658,3 @@ class PurchaseOrderLine(models.Model):
                 business_domain='purchase_order',
                 company_id=line.company_id.id,
             )
-
-

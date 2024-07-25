@@ -532,14 +532,17 @@ msgstr ""
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_register_form
-msgid ""
-"<b>Early Payment Discount of %(payment_reference) has been applied.</b>"
-msgstr ""
+msgid "<b>Early Payment Discount applied.</b>"
+msgstr "<b>Se aplicó un descuento por pago anticipado.</b>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
-msgid "<br/> on this account:"
-msgstr "<br/> en esta cuenta:"
+msgid ""
+"<br/>\n"
+"                            on this account:"
+msgstr ""
+"<br/>\n"
+"                            en esta cuenta:"
 
 #. module: account
 #: model:mail.template,body_html:account.email_template_edi_credit_note
@@ -1989,7 +1992,7 @@ msgstr "Asientos contables"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Accounting Firms mode"
-msgstr "Modo de asesoría contable"
+msgstr "Modo de empresas de contabilidad"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_journal_form
@@ -2037,7 +2040,8 @@ msgstr "Documentos contables"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Accounting firm mode will change invoice/bill encoding:"
-msgstr "El modo de asesoría contable cambiará la codificación de la factura:"
+msgstr ""
+"El modo de empresas de contabilidad cambiará la codificación de la factura:"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
@@ -2321,7 +2325,7 @@ msgstr "Agregar contactos a notificar..."
 msgid ""
 "Add your terms & conditions at the bottom of invoices/orders/quotations"
 msgstr ""
-"Agregue sus términos y condiciones al final de sus facturas, pedidos o "
+"Agregue sus términos y condiciones al final de sus facturas, órdenes o "
 "presupuestos"
 
 #. module: account
@@ -7390,7 +7394,7 @@ msgstr "Nombre más alto"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "How total tax amount is computed in orders and invoices"
-msgstr "Cómo se calcula el importe total de impuestos en pedidos y facturas"
+msgstr "Cómo se calcula el importe total de impuestos en órdenes y facturas"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__id
@@ -8075,10 +8079,8 @@ msgstr "No válido"
 #. odoo-python
 #: code:addons/account/models/partner.py:0
 #, python-format
-msgid ""
-"Invalid \"Zip Range\", You have to configure both \"From\" and \"To\" values"
-" for the zip range and \"To\" should be greater than \"From\"."
-msgstr ""
+msgid "Invalid \"Zip Range\", please configure it properly."
+msgstr "\"Zona postal\" no válida, por favor, configúrala apropiadamente."
 
 #. module: account
 #. odoo-python
@@ -10553,12 +10555,12 @@ msgstr "Facturas originales"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__group_tax_id
 msgid "Originator Group of Taxes"
-msgstr "Grupo de impuestos del originador"
+msgstr "Grupo de impuestos del emisor "
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__payment_id
 msgid "Originator Payment"
-msgstr "Pago del originador"
+msgstr "Emisor del pago"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__statement_line_id
@@ -10571,7 +10573,7 @@ msgstr "Línea de extracto de cuenta del originador"
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_line_filter
 #: model_terms:ir.ui.view,arch_db:account.view_move_line_tree
 msgid "Originator Tax"
-msgstr "Impuesto del originador"
+msgstr "Impuesto (cuota)"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__tax_repartition_line_id
@@ -13250,7 +13252,7 @@ msgid ""
 " for the entire order, regardless of the products on the different lines."
 msgstr ""
 "Especifique un valor arbitrario que se acumulará en una         cuenta por "
-"defecto para toda el pedido, independientemente de los productos en las "
+"defecto para toda la orden, independientemente de los productos en las "
 "diferentes líneas."
 
 #. module: account
@@ -13966,13 +13968,6 @@ msgstr "Términos y condiciones"
 #: model:ir.model.fields,field_description:account.field_account_report_external_value__text_value
 msgid "Text Value"
 msgstr "Valor del texto"
-
-#. module: account
-#. odoo-javascript
-#: code:addons/account/static/src/components/document_state/document_state_field.js:0
-#, python-format
-msgid "Text copied"
-msgstr "Texto copiado"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_res_company__account_opening_date
@@ -15415,7 +15410,7 @@ msgid ""
 "This payment term will be used instead of the default one for purchase "
 "orders and vendor bills"
 msgstr ""
-"Se utilizará este plazo de pago en lugar del predeterminado para los pedidos"
+"Se utilizará este plazo de pago en lugar del predeterminado para las órdenes"
 " de compra y las facturas de proveedor."
 
 #. module: account
@@ -15484,7 +15479,7 @@ msgid ""
 "Those options will be selected by default when clicking \"Send & Print\" on "
 "invoices"
 msgstr ""
-"Esas opciones se seleccionarán por defecto al hacer clic en \"Enviar e "
+"Esas opciones se seleccionarán por defecto al hacer clic en  \"Enviar e "
 "imprimir\" en las facturas "
 
 #. module: account
@@ -16098,7 +16093,7 @@ msgstr "Utilizar la contabilidad Storno"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_report__filter_multi_company__tax_units
 msgid "Use Tax Units"
-msgstr "Utilizar unidades tributarias"
+msgstr "Utilizar unidades fiscales"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__anglo_saxon_accounting
@@ -16874,7 +16869,7 @@ msgstr ""
 
 #. module: account
 #. odoo-python
-#: code:addons/account/models/account_journal.py:0
+#: code:addons/account/models/account_payment_method.py:0
 #, python-format
 msgid ""
 "You can't have two payment method lines of the same payment type (%s) and "
@@ -17582,7 +17577,7 @@ msgid ""
 "become involved in costs related to a country's legislation. The amount of "
 "the invoice will therefore be due to"
 msgstr ""
-"se involucra en los costes relacionados con la legislación de un país. Por "
+"se involucran en los costes relacionados con la legislación de un país. Por "
 "lo tanto, el importe de la factura se deberá a"
 
 #. module: account

@@ -19,10 +19,6 @@ class PurchaseRequestLine(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin", "analytic.mixin"]
     _order = "id desc"
 
-    line_id = fields.Many2one('purchase.rfq', string='Line Reference', required=True)
-    keep_description = fields.Boolean(string='Keep Description')
-    price_unit = fields.Float(string='Unit Price', digits='Product Price')
-
     name = fields.Char(string="Description", tracking=True)
     product_uom_id = fields.Many2one(
         comodel_name="uom.uom",
@@ -98,7 +94,7 @@ class PurchaseRequestLine(models.Model):
         compute="_compute_purchased_qty",
     )
     purchase_lines = fields.Many2many(
-        comodel_name="purchase.order.line",
+        comodel_name="purchase.rfq.line",
         relation="purchase_request_purchase_order_line_rel",
         column1="purchase_request_line_id",
         column2="purchase_order_line_id",
@@ -109,7 +105,7 @@ class PurchaseRequestLine(models.Model):
     purchase_state = fields.Selection(
         compute="_compute_purchase_state",
         string="Purchase Status",
-        selection=lambda self: self.env["purchase.order"]._fields["state"].selection,
+        selection=lambda self: self.env["purchase.rfq"]._fields["state"].selection,
         store=True,
     )
     move_dest_ids = fields.One2many(
@@ -400,15 +396,3 @@ class PurchaseRequestLine(models.Model):
                 self.env.context,
             ),
         }
-
-    @api.onchange('product_qty')
-    def _onchange_quantity(self):
-        # Implement the logic for onchange_quantity
-        if self.product_id:
-            self.price_unit = self.product_id.standard_price
-            self.subtotal = self.product_qty * self.price_unit
-
-    @api.onchange('quantity')
-    def _onchange_quantity(self):
-        if self.product_id:
-            self.price_unit = self.product_id.standard_price

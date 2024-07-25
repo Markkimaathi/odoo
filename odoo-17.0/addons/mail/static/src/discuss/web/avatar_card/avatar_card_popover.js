@@ -34,6 +34,5 @@ export class AvatarCardPopover extends Component {
 
     onSendClick() {
         this.openChat(this.user.id);
-        this.props.close();
     }
 }

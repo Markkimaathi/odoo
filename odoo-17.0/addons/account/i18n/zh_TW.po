@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Pak Wai Ho, 2024
 # Tony Ng, 2024
 # 
 msgid ""
@@ -192,7 +191,7 @@ msgstr "%s 結單 %s"
 #: code:addons/account/models/account_move_line.py:0
 #, python-format
 msgid "%s installment #%s"
-msgstr "%s 分期付款第 %s 期"
+msgstr "%s 分期付款期數 #%s"
 
 #. module: account
 #. odoo-python
@@ -519,14 +518,17 @@ msgstr ""
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_register_form
-msgid ""
-"<b>Early Payment Discount of %(payment_reference) has been applied.</b>"
-msgstr ""
+msgid "<b>Early Payment Discount applied.</b>"
+msgstr "<b>已套用預早付款折扣。</b>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
-msgid "<br/> on this account:"
-msgstr "<br/>在此帳戶："
+msgid ""
+"<br/>\n"
+"                            on this account:"
+msgstr ""
+"<br/>\n"
+"                            在此賬戶上："
 
 #. module: account
 #: model:mail.template,body_html:account.email_template_edi_credit_note
@@ -1345,7 +1347,7 @@ msgstr "<strong>類型：</strong>"
 #: code:addons/account/models/account_move.py:0
 #, python-format
 msgid "@From: %(email)s"
-msgstr "@由：%(email)s"
+msgstr "@From: %(email)s"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_view_bank_statement_tree
@@ -3952,7 +3954,7 @@ msgstr "關閉"
 #: model:ir.model.fields,field_description:account.field_account_report_line__code
 #: model_terms:ir.ui.view,arch_db:account.view_account_form
 msgid "Code"
-msgstr "代碼"
+msgstr "程式碼"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_group_form
@@ -7603,7 +7605,9 @@ msgstr ""
 msgid ""
 "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: "
 "%s"
-msgstr "財政年度日期不正確：日子超出月份範圍。月：%s，日：%s"
+msgstr ""
+"‎未翻譯的字元\n"
+"‎會計年度日期‎‎不正確: 日超出了月的範圍。月：%s；天：%s"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__invoice_incoterm_id
@@ -7780,10 +7784,8 @@ msgstr "無效的"
 #. odoo-python
 #: code:addons/account/models/partner.py:0
 #, python-format
-msgid ""
-"Invalid \"Zip Range\", You have to configure both \"From\" and \"To\" values"
-" for the zip range and \"To\" should be greater than \"From\"."
-msgstr ""
+msgid "Invalid \"Zip Range\", please configure it properly."
+msgstr "無效的\"郵編範圍\"，請正確的設定."
 
 #. module: account
 #. odoo-python
@@ -13496,13 +13498,6 @@ msgid "Text Value"
 msgstr "文字值"
 
 #. module: account
-#. odoo-javascript
-#: code:addons/account/static/src/components/document_state/document_state_field.js:0
-#, python-format
-msgid "Text copied"
-msgstr "文字已複製"
-
-#. module: account
 #: model:ir.model.fields,help:account.field_res_company__account_opening_date
 msgid "That is the date of the opening entry."
 msgstr "這是期初分錄的日期."
@@ -16142,7 +16137,7 @@ msgstr ""
 
 #. module: account
 #. odoo-python
-#: code:addons/account/models/account_journal.py:0
+#: code:addons/account/models/account_payment_method.py:0
 #, python-format
 msgid ""
 "You can't have two payment method lines of the same payment type (%s) and "
