@@ -27,6 +27,7 @@ class PurchaseOrder(models.Model):
     price_unit = fields.Float(string='Unit Price', required=True)
 
 
+
     @api.depends('order_line.price_total')
     def _amount_all(self):
         for order in self:

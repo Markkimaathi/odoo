@@ -17,6 +17,17 @@ class PurchaseOrderLine(models.Model):
 
     product_uom_qty = fields.Float(string='Quantity', required=True)
     price_unit = fields.Float(string='Unit Price', required=True)
+    rfq_id = fields.Many2one('purchase.rfq', string='RFQ Reference')
+    move_dest_ids = fields.One2many('stock.move', 'name', string='Destination Moves')
+
+    purchase_request_lines = fields.Many2many(
+        'purchase.request.line',
+        'purchase_request_line_rfq_rel',
+        'rfq_line_id',
+        'request_line_id',
+        string='Purchase Request Lines'
+    )
+
 
     name = fields.Text(
         string='Description', required=True, compute='_compute_price_unit_and_date_planned_and_name', store=True, readonly=False)
@@ -660,3 +671,5 @@ class PurchaseOrderLine(models.Model):
                 business_domain='purchase_order',
                 company_id=line.company_id.id,
             )
+
+

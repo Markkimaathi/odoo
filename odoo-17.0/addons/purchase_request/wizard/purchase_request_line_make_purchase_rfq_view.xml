@@ -7,7 +7,7 @@
                 <form string="Make RFQ">
                     <group>
                         <field name="supplier_id"/>
-                        <field name="purchase_order_id"/>
+                        <field name="name"/>
                         <field name="sync_data_planned"/>
                     </group>
 

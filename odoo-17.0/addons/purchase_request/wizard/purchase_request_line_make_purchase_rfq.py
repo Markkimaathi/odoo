@@ -3,7 +3,8 @@ import pytz
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import get_lang
-
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
@@ -21,8 +22,8 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
         inverse_name="wiz_id",
         string="Items",
     )
-    purchase_order_id = fields.Many2one(
-        comodel_name="purchase.order",
+    name = fields.Many2one(
+        comodel_name="purchase.rfq",
         string="RFQ",
         domain=[("state", "=", "draft")],
     )
@@ -119,6 +120,8 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
             res["supplier_id"] = supplier_ids[0]
         return res
 
+
+
     @api.model
     def _prepare_rfq(self, picking_type, group_id, company, origin):
         if not self.supplier_id:
@@ -138,12 +141,23 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
         return data
 
     def create_allocation(self, po_line, pr_line, new_qty, alloc_uom):
+        if not po_line or not pr_line or not alloc_uom:
+            _logger.error("Invalid input for allocation. PO Line: %s, PR Line: %s, UOM: %s", po_line, pr_line,
+                          alloc_uom)
+            raise UserError(_("Invalid input data for allocation creation."))
+
+        if new_qty <= 0:
+            _logger.error("Invalid quantity for allocation: %s", new_qty)
+            raise UserError(_("Quantity must be positive."))
+
         vals = {
             "requested_product_uom_qty": new_qty,
             "product_uom_id": alloc_uom.id,
             "purchase_request_line_id": pr_line.id,
             "purchase_line_id": po_line.id,
         }
+
+        _logger.info("Creating allocation with values: %s", vals)
         return self.env["purchase.request.allocation"].create(vals)
 
     @api.model
@@ -236,10 +250,15 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
 
         for item in self.item_ids:
             line = item.line_id
+            if not line:
+                _logger.error("Purchase request line is not defined.")
+                continue
+
             if item.product_qty <= 0.0:
                 raise UserError(_("Enter a positive quantity."))
-            if self.purchase_order_id:
-                purchase = self.purchase_order_id
+
+            if self.name:
+                purchase = self.name
             if not purchase:
                 origin = ", ".join(list(set(item.line_id.mapped("request_id.name"))))
                 purchase = purchase_obj.create(
@@ -250,11 +269,14 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
                         origin,
                     )
                 )
+
             if not purchase:
                 raise UserError(_("RFQ could not be created."))
+
             res.append(purchase.id)
             domain = self._get_order_line_search_domain(purchase, item)
             po_line = po_line_obj.search(domain, limit=1)
+
             if po_line:
                 po_line.write({"product_qty": po_line.product_qty + item.product_qty})
                 po_line._onchange_quantity()
@@ -262,27 +284,28 @@ class PurchaseRequestLineMakePurchaseRFQ(models.TransientModel):
                 vals = self._prepare_rfq_line(purchase, item)
                 name = self._get_rfq_line_name(purchase, item)
                 vals.update(name=name)
+
+                _logger.info("Creating purchase RFQ line with values: %s", vals)
+
                 po_line = po_line_obj.create(vals)
+
             self.create_allocation(po_line, line, item.product_qty, item.product_uom_id)
 
             if purchase.origin:
                 if line.request_id.name not in purchase.origin.split(", "):
-                    purchase.write(
-                        {"origin": purchase.origin + ", " + line.request_id.name}
-                    )
+                    purchase.write({"origin": purchase.origin + ", " + line.request_id.name})
             else:
                 purchase.write({"origin": line.request_id.name})
 
-            # Link this PO line to the PR line
             pr_line_obj |= item.line_id
 
-            # Convert the PR's date in the User's timezone.
             date_required = item.line_id.date_required
-            date_required = user_tz.localize(date_required)
-            date_required = date_required.astimezone(pytz.utc).replace(tzinfo=None)
-            # Change the scheduled date on the PO
-            if po_line.date_planned < date_required:
-                po_line.write({"date_planned": date_required})
+            if isinstance(date_required, datetime):
+                date_required = user_tz.localize(date_required).astimezone(pytz.utc).replace(tzinfo=None)
+                if po_line.date_planned < date_required:
+                    po_line.write({"date_planned": date_required})
+            else:
+                _logger.warning(f"date_required is not a valid datetime object: {date_required}")
 
         if len(res) > 1:
             return {

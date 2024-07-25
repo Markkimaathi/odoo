@@ -21,6 +21,7 @@ class PurchaseRequestLine(models.Model):
 
     line_id = fields.Many2one('purchase.rfq', string='Line Reference', required=True)
     keep_description = fields.Boolean(string='Keep Description')
+    price_unit = fields.Float(string='Unit Price', digits='Product Price')
 
     name = fields.Char(string="Description", tracking=True)
     product_uom_id = fields.Many2one(
@@ -406,3 +407,8 @@ class PurchaseRequestLine(models.Model):
         if self.product_id:
             self.price_unit = self.product_id.standard_price
             self.subtotal = self.product_qty * self.price_unit
+
+    @api.onchange('quantity')
+    def _onchange_quantity(self):
+        if self.product_id:
+            self.price_unit = self.product_id.standard_price
