@@ -23,8 +23,9 @@ class PurchaseOrder(models.Model):
     _order = 'priority desc, id desc'
 
     # order_id = fields.Many2one('purchase.order', string='Order Reference')
-    product_uom_qty = fields.Float(string='Quantity', required=True)
-    price_unit = fields.Float(string='Unit Price', required=True)
+    # product_uom_qty = fields.Float(string='Quantity', required=True)
+    # price_unit = fields.Float(string='Unit Price', required=True)
+    has_alternatives = fields.Boolean(string='Has Alternatives')
 
     @api.depends('order_line.price_total')
     def _amount_all(self):
