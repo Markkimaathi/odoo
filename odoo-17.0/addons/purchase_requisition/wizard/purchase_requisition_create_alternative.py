@@ -10,7 +10,7 @@ class PurchaseRequisitionCreateAlternative(models.TransientModel):
     _description = 'Wizard to preset values for alternative PO'
 
     origin_po_id = fields.Many2one(
-        'purchase.order', help="The original PO that this alternative PO is being created for."
+            'purchase.rfq', help="The original PO that this alternative PO is being created for."
     )
     partner_id = fields.Many2one(
         'res.partner', string='Vendor', required=True,
@@ -59,12 +59,12 @@ class PurchaseRequisitionCreateAlternative(models.TransientModel):
                   'order has a blocking warning on it and cannot be selected to create an alternative.')
             )
         vals = self._get_alternative_values()
-        alt_po = self.env['purchase.order'].with_context(origin_po_id=self.origin_po_id.id, default_requisition_id=False).create(vals)
+        alt_po = self.env['purchase.rfq'].with_context(origin_po_id=self.origin_po_id.id, default_requisition_id=False).create(vals)
         alt_po.order_line._compute_tax_id()
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'res_model': 'purchase.order',
+            'res_model': 'purchase.rfq ',
             'res_id': alt_po.id,
             'context': {
                 'active_id': alt_po.id,

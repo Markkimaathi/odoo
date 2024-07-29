@@ -3,15 +3,15 @@
 
     <record id="purchase_order_form_inherit" model="ir.ui.view">
         <field name="name">purchase.order.form.inherit</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="model">purchase.rfq</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form1"/>
         <field name="arch" type="xml">
             <field name="partner_id" position="replace">
                 <field name="is_quantity_copy" invisible="1"/>
                 <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}" readonly="is_quantity_copy == 'none' or state in ['purchase', 'done', 'cancel']" placeholder="Name, TIN, Email, or Reference" force_save="1"/>
             </field>
             <field name="partner_ref" position="after">
-                <field name="requisition_id" domain="[('state', 'in', ('in_progress', 'open', 'ongoing')), ('vendor_id', 'in', (partner_id, False)), ('company_id', '=', company_id)]"
+                <field name="rfq_id" domain="[('state', 'in', ('in_progress', 'open', 'ongoing')), ('vendor_id', 'in', (partner_id, False)), ('company_id', '=', company_id)]"
                 options="{'no_create': True}"/>
             </field>
             <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
