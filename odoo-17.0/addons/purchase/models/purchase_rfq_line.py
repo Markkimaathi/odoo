@@ -15,8 +15,7 @@ class PurchaseOrderLine(models.Model):
     _description = 'Purchase Order Line'
     _order = 'order_id, sequence, id'
 
-
-
+    on_time_rate_perc = fields.Float(string='On Time Rate (%)')
     name = fields.Text(
         string='Description', required=True, compute='_compute_price_unit_and_date_planned_and_name', store=True, readonly=False)
     sequence = fields.Integer(string='Sequence', default=10)
@@ -273,7 +272,7 @@ class PurchaseOrderLine(models.Model):
     @api.onchange('product_id')
     def onchange_product_id(self):
         # TODO: Remove when onchanges are replaced with computes
-        if not self.product_id or (self.env.context.get('origin_po_id') and self.product_qty):
+        if not self.product_id or (self.env.context.get('origin_rfq_id') and self.product_qty):
             return
 
         # Reset date, price and quantity since _onchange_quantity will provide default values

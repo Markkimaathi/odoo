@@ -35,7 +35,6 @@
                            statusbar_visible="draft,submit,approve,approved,done"/>
                 </header>
                 <sheet>
-<!--                    <group>-->
                         <group>
                             <field name="ref"/>
                             <field name="name" default_focus="1"/>
@@ -44,24 +43,20 @@
                             <field name="date_bid_to_end"/>
                             <field name="days_to_deadline"/>
                         </group>
-<!--                        <group>-->
-<!--                            <field name=""/>-->
-<!--                        </group>-->
 
-<!--                    </group>-->
-                    <notebook>
-                        <page string="Products" name="products">
-                            <tree string="Purchase Order Lines" editable="bottom">
+<!--                    <notebook>-->
+<!--                        <page string="Products" name="products">-->
+<!--                            <tree string="Purchase Order Lines" editable="bottom">-->
 
-                            </tree>
-                    </page>
-                </notebook>
+<!--                            </tree>-->
+<!--                    </page>-->
+<!--                </notebook>-->
             </sheet>
-            <div class="oe_chatter">
-                <field name="message_follower_ids"/>
-                <field name="activity_ids"/>
-                <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
-            </div>
+<!--            <div class="oe_chatter">-->
+<!--                <field name="message_follower_ids"/>-->
+<!--                <field name="activity_ids"/>-->
+<!--                <field name="message_ids" options="{'post_refresh': 'recipients'}"/>-->
+<!--            </div>-->
         </form>
     </field>
 </record>

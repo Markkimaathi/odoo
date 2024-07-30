@@ -72,6 +72,7 @@
                         <h1 class="d-flex">
                             <field name="priority" widget="priority" class="me-3"/>
                             <field name="name" readonly="1"/>
+                            <field name="on_time_rate_perc"/>
                         </h1>
                     </div>
                     <group>
