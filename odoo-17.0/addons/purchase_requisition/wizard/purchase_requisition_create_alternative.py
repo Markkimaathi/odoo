@@ -3,12 +3,15 @@
 
 from odoo import _, api, fields, models, Command
 from odoo.exceptions import UserError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class PurchaseRequisitionCreateAlternative(models.TransientModel):
     _name = 'purchase.requisition.create.alternative'
     _description = 'Wizard to preset values for alternative PO'
 
-    origin_rfq_id = fields.Many2one(
+    origin_po_id = fields.Many2one(
         'purchase.rfq',
         help="The original PO that this alternative PO is being created for."
     )
@@ -37,26 +40,27 @@ class PurchaseRequisitionCreateAlternative(models.TransientModel):
 
     @api.depends('partner_id', 'copy_products')
     def _compute_purchase_warn(self):
-        for rec in self:
-            rec.creation_blocked = False
-            rec.purchase_warn_msg = ''
-            if not self.env.user.has_group('purchase.group_warning_purchase'):
-                continue  # Use continue to skip to the next record
-            partner = rec.partner_id
-            if partner and partner.purchase_warn == 'no-message':
-                partner = partner.parent_id
-            if partner and partner.purchase_warn != 'no-message':
-                rec.purchase_warn_msg = _("Warning for %(partner)s:\n%(warning_message)s\n", partner=partner.name, warning_message=partner.purchase_warn_msg)
-                if partner.purchase_warn == 'block':
-                    rec.creation_blocked = True
-                    rec.purchase_warn_msg += _("This is a blocking warning!\n")
-            if rec.copy_products and rec.origin_rfq_id and rec.origin_rfq_id.order_line:
-                for line in rec.origin_rfq_id.order_line:
-                    if line.product_id.purchase_line_warn != 'no-message':
-                        rec.purchase_warn_msg += _("Warning for %(product)s:\n%(warning_message)s\n", product=line.product_id.name, warning_message=line.product_id.purchase_line_warn_msg)
-                        if line.product_id.purchase_line_warn == 'block':
-                            rec.creation_blocked = True
-                            rec.purchase_warn_msg += _("This is a blocking warning!\n")
+        self.creation_blocked = False
+        self.purchase_warn_msg = ''
+        # follows partner warning logic from PurchaseOrder
+        if not self.env.user.has_group('purchase.group_warning_purchase'):
+            return
+        partner = self.partner_id
+        # If partner has no warning, check its company
+        if partner and partner.purchase_warn == 'no-message':
+            partner = partner.parent_id
+        if partner and partner.purchase_warn != 'no-message':
+            self.purchase_warn_msg = _("Warning for %(partner)s:\n%(warning_message)s\n") % {'partner': partner.name, 'warning_message': partner.purchase_warn_msg}
+            if partner.purchase_warn == 'block':
+                self.creation_blocked = True
+                self.purchase_warn_msg += _("This is a blocking warning!\n")
+        if self.copy_products and self.origin_po_id.order_line:
+            for line in self.origin_po_id.order_line:
+                if line.product_id.purchase_line_warn != 'no-message':
+                    self.purchase_warn_msg += _("Warning for %(product)s:\n%(warning_message)s\n") % {'product': line.product_id.name, 'warning_message': line.product_id.purchase_line_warn_msg}
+                    if line.product_id.purchase_line_warn == 'block':
+                        self.creation_blocked = True
+                        self.purchase_warn_msg += _("This is a blocking warning!\n")
 
     def action_create_alternative(self):
         if self.env.user.has_group('purchase.group_warning_purchase') and self.creation_blocked:
@@ -65,54 +69,35 @@ class PurchaseRequisitionCreateAlternative(models.TransientModel):
                   'order has a blocking warning on it and cannot be selected to create an alternative.')
             )
         vals = self._get_alternative_values()
-        alt_rfq = self.env['purchase.rfq'].with_context(origin_rfq_id=self.origin_rfq_id.id,
-                                                       default_requisition_id=False).create(vals)
-        alt_rfq.order_line._compute_tax_id()
+        _logger.debug("Alternative PO values: %s", vals)
+        alt_po = self.env['purchase.rfq'].with_context(origin_po_id=self.origin_po_id.id, default_requisition_id=False).create(vals)
+        alt_po.order_line._compute_tax_id()
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'purchase.rfq',
-            'res_id': alt_rfq.id,
+            'res_id': alt_po.id,
             'context': {
-                'active_id': alt_rfq.id,
+                'active_id': alt_po.id,
             },
         }
 
     def _get_alternative_values(self):
-
         vals = {
-            'date_order': self.origin_rfq_id.date_order,
+            'date_order': self.origin_po_id.date_order,
             'partner_id': self.partner_id.id,
-            'user_id': self.origin_rfq_id.user_id.id,
-            'dest_address_id': self.origin_rfq_id.dest_address_id.id,
-            'origin': self.origin_rfq_id.origin,
-            'picking_type_id': self.origin_rfq_id.picking_type_id.id,
-            'group_id': self.origin_rfq_id.group_id.id,
-
+            'user_id': self.origin_po_id.user_id.id,
+            'dest_address_id': self.origin_po_id.dest_address_id.id,
+            'origin': self.origin_po_id.origin,
+            'picking_type_id': self.origin_po_id.picking_type_id.id,
+            'group_id': self.origin_po_id.group_id.id,
         }
-        if self.copy_products and self.origin_rfq_id:
-            vals['order_line'] = [Command.create(self._get_alternative_line_value(line)) for line in
-                                  self.origin_rfq_id.order_line]
+        if self.copy_products and self.origin_po_id:
+            vals['order_line'] = [Command.create(self._get_alternative_line_value1(line)) for line in self.origin_po_id.order_line]
         return vals
 
-    # def _get_alternative_values(self):
-    #     vals = {}
-    #     if self.origin_rfq_id:
-    #         if not isinstance(self.origin_rfq_id, models.Model):
-    #             raise UserError(_('Origin RFQ ID should be a record, not a boolean.'))
-    #         vals = {
-    #             'date_order': self.origin_rfq_id.date_order,
-    #             'partner_id': self.partner_id.id,
-    #             'user_id': self.origin_rfq_id.user_id.id,
-    #             'dest_address_id': self.origin_rfq_id.dest_address_id.id if self.origin_rfq_id.dest_address_id else False,
-    #             'origin': self.origin_rfq_id.origin,
-    #         }
-    #         if self.copy_products:
-    #             vals['order_line'] = [Command.create(self._get_alternative_line_value(line)) for line in self.origin_rfq_id.order_line]
-    #     return vals
-
     @api.model
-    def _get_alternative_line_value(self, order_line):
+    def _get_alternative_line_value1(self, order_line):
         return {
             'product_id': order_line.product_id.id,
             'product_qty': order_line.product_qty,

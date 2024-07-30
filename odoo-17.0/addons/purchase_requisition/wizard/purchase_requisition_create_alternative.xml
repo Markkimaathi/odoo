@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Create Alternative">
                     <group>
-                        <field name="origin_rfq_id" invisible="1"/>
+                        <field name="origin_po_id" invisible="1"/>
                         <group>
                             <field name="partner_id"/>
                         </group>
