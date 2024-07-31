@@ -83,14 +83,18 @@
                             <field name="tender_management_line_ids">
                                 <tree editable="top">
                                     <field name="product_id"/>
-                                    <field name="price_unit"/>
-                                    <field name="qty"/>
+                                    <field name="default_code"/>
+                                    <field name="name"/>
+                                    <field name="product_quantity"/>
+                                    <field name="product_uom_id"/>
                                 </tree>
                                 <form>
                                     <group>
                                         <field name="product_id"/>
-                                        <field name="price_unit"/>
-                                        <field name="qty"/>
+                                        <field name="default_code"/>
+                                        <field name="name"/>
+                                        <field name="product_quantity"/>
+                                        <field name="product_uom_id"/>
                                     </group>
                                 </form>
                             </field>

@@ -114,3 +114,13 @@ class TenderManagementLine(models.Model):
     default_code = fields.Char(related='product_id.default_code', string='Code')
     name = fields.Char(string='Description')
     tender_management_id = fields.Many2one('tender.management', string='Tender Management')
+
+
+class MailActivityMixin(models.AbstractModel):
+    _inherit = 'mail.activity.mixin'
+
+    def toggle_active(self):
+        record_to_deactivate = self.filtered(lambda rec: rec._active_name and rec[rec._active_name])
+        record_to_activate = self - record_to_deactivate
+        record_to_deactivate.write({record_to_deactivate._active_name: False})
+        record_to_activate.write({record_to_activate._active_name: True})
