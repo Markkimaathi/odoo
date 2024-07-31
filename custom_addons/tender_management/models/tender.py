@@ -26,7 +26,11 @@ class TenderManagement(models.Model):
     tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id', string='Tender Management Line')
     formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
     category=fields.Char(string='Category')
-    rank=fields.Char(string='Top Rank')
+    top_rank=fields.Char(string='Top Rank')
+    is_active = fields.Boolean(string='Active', default=True)
+    website_published = fields.Boolean('Publish on Website', copy=False)
+    # bid_count = fields.Integer(string='Bids', compute='_compute_bid_count')
+    rank = fields.Integer(string='Rank')
 
     @api.depends('date_created')
     def _compute_formatted_date(self):
@@ -81,6 +85,11 @@ class TenderManagement(models.Model):
         if vals.get('ref', 'New') == 'New':
             vals['ref'] = self.env['ir.sequence'].next_by_code('tender.management') or 'New'
         return super(TenderManagement, self).create(vals)
+
+    def toggle_website_publish(self):
+        for record in self:
+            record.website_published = not record.website_published
+        return True
 
 
 class TenderManagementLine(models.Model):

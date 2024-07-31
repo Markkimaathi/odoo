@@ -10,6 +10,4 @@
             <field name="perm_unlink" eval="True"/>
         </record>
     </data>
-
-
 </odoo>

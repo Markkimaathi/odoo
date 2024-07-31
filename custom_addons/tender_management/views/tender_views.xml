@@ -35,17 +35,28 @@
                            statusbar_visible="draft,submit,approve,approved,done"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="is_active" widget="boolean_button"/>
+                        </button>
+                        <button name="toggle_website_publish" type="object" class="oe_stat_button" icon="fa-globe">
+                            <field name="website_published" widget="boolean_button"
+                                   options='{"terminology": {"string_true": "Published", "string_false": "Unpublished"}}'/>
+                        </button>
+                    </div>
                     <group>
-                        <field name="ref"/>
-                        <field name="name" default_focus="1"/>
-                        <field name="partner_id" widget="many2many_tags"/>
-                        <field name="date_created"/>
-                        <field name="date_bid_to_end"/>
-                        <field name="days_to_deadline"/>
-                    </group>
-                    <group>
-                        <field name="category"/>
-                        <field name="rank"/>
+                        <group>
+                            <field name="ref" invisible="1"/>
+                            <field name="name" default_focus="1"/>
+                            <field name="partner_id" widget="many2many_tags"/>
+                            <field name="date_created"/>
+                            <field name="date_bid_to_end"/>
+                            <field name="days_to_deadline"/>
+                        </group>
+                        <group>
+                            <field name="category"/>
+                            <field name="top_rank"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Material" name="Products">
@@ -68,7 +79,23 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Labour" name="Labour">
+                        <page string="Labour" name="Products">
+                            <field name="tender_management_line_ids">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="qty"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <field name="price_unit"/>
+                                        <field name="qty"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Overhead" name="Products">
                             <field name="tender_management_line_ids">
                                 <tree editable="top">
                                     <field name="product_id"/>
