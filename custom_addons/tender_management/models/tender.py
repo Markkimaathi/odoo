@@ -23,8 +23,18 @@ class TenderManagement(models.Model):
     days_to_deadline= fields.Integer(string='Days To Deadline', compute='_compute_days')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
     bid_count = fields.Integer(string='Bid Count', compute='_compute_bid_count')
+    tender_management_line_ids=fields.One2many('tender.management.line','tender_management_id',string='Tender Management Line')
+    formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
 
-    @api.depends('date_created', 'date_bid_to_end')
+    @api.depends('date_created')
+    def _compute_formatted_date(self):
+        for record in self:
+            if record.date_created:
+                date = fields.Date.from_string(record.date_created)
+                record.formatted_date = f''' {date.strftime("%d")} \n {date.strftime("%b %Y")} '''
+            else:
+                record.formatted_date = ''
+    @api.depends('date_bid_to_end')
     def _compute_days(self):
         for rec in self:
             today = date.today()
@@ -66,5 +76,8 @@ class TenderManagement(models.Model):
         _name='tender.management.line'
         _description = "Tender Management Line"
 
-        product_id=fields.Many2one('product.product', string='Products')
+        product_id = fields.Many2one('product.product', string='Products')
+        price_unit = fields.Float(string='Price')
+        qty = fields.Integer(string='Quantity')
+        tender_management_id=fields.Many2one('tender.management',string='Tender Management')
 
