@@ -1,4 +1,3 @@
-# models/category.py
 from odoo import models, fields
 
 class Category(models.Model):

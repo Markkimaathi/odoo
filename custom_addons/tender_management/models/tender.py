@@ -39,7 +39,7 @@ class TenderManagement(models.Model):
 
     def create(self, vals):
         if vals.get('category_id'):
-            category = self.env['your_module.category'].browse(vals['category_id'])
+            category = self.env['tender.category'].browse(vals['category_id'])
             if category:
                 category.name = vals.get('name')
         return super(TenderManagement, self).create(vals)
