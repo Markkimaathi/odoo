@@ -4,7 +4,7 @@
         <field name="name">Tenders</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">tender.management</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
     </record>
 
     <record id="view_tenders_tree" model="ir.ui.view">

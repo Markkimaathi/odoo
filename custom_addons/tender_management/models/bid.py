@@ -1,4 +1,5 @@
-from odoo import api, fields, models,_
+from odoo import api, fields, models, _
+
 
 class Bid(models.Model):
     _name = 'tender.bid'
@@ -14,8 +15,10 @@ class Bid(models.Model):
     date_created = fields.Date(string='Start Date', default=fields.Date.context_today)
     date_bid_to_end = fields.Date(sbid_amounttring='End Date', default=fields.Date.context_today)
     bid_management_line_ids = fields.One2many('bid.management.line', 'bid_management_id',
-                                                 string='Tender Management Line')
+                                              string='Tender Management Line')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
+    formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
+    days_to_deadline = fields.Integer(string='Days To Deadline', compute='_compute_days')
 
     state = fields.Selection([
         ('draft', 'DRAFT'),
@@ -24,6 +27,25 @@ class Bid(models.Model):
         ('approved', 'IN PROGRESS'),
         ('done', 'DONE'),
         ('cancel', 'CANCEL')], string='State', default='draft', required=True)
+
+    @api.depends('date_bid_to_end')
+    def _compute_days(self):
+        for rec in self:
+            if rec.date_bid_to_end:
+                today = fields.Date.context_today(self)
+                days_difference = (rec.date_bid_to_end - today).days
+                rec.days_to_deadline = days_difference
+            else:
+                rec.days_to_deadline = 0
+
+    @api.depends('date_created')
+    def _compute_formatted_date(self):
+        for record in self:
+            if record.date_created:
+                date = fields.Date.to_date(record.date_created)
+                record.formatted_date = f"{date.strftime('%d')} \n {date.strftime('%b %Y')}"
+            else:
+                record.formatted_date = ''
 
     def create(self, vals):
         if vals.get('ref', _('New')) == _('New'):
@@ -55,6 +77,7 @@ class Bid(models.Model):
 
     def action_submit(self):
         self.change_state('submit')
+
 
 class BidManagementLine(models.Model):
     _name = 'bid.management.line'

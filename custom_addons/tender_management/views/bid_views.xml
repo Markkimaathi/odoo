@@ -10,7 +10,7 @@
                 <field name="ref"/>
                 <field name="partner_id"/>
                 <field name="date_created"/>
-                <field name="date_bid_to_end"/>
+                <field name="days_to_deadline"/>
                 <field name="state"
                        decoration-success="state == 'DRAFT' or state == 'DONE'"
                        decoration-info="state == 'SUBMITTED'"
@@ -51,7 +51,7 @@
                         <field name="tender_id"/>
                         <field name="ref" invisible="1"/>
                         <field name="date_created"/>
-                        <field name="date_bid_to_end"/>
+                        <field name="days_to_deadline"/>
                         <field name="partner_id" widget="many2many_tags"/>
                         <field name="state" invisible="1"/>
                     </group>
@@ -95,6 +95,52 @@
         </field>
     </record>
 
+    <record id="view_bid_management_kanban" model="ir.ui.view">
+        <field name="name">bid.management.kanban</field>
+        <field name="model">tender.bid</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="date_created"/>
+                <field name="days_to_deadline"/>
+                <field name="formatted_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <div class="o_kanban_record_top" style="display: flex;">
+                                <div class="oe_kanban_bottom_left"
+                                     style="flex: 0 0 80px; background-color: #00A09D; color: white; padding: 8px; text-align: center;">
+                                    <weak>
+                                        <t t-esc="record.formatted_date.raw_value.split('\n')[0].trim()"/>
+                                    </weak>
+                                    <br/>
+                                    <weak>
+                                        <t t-esc="record.formatted_date.raw_value.split('\n')[1].trim()"/>
+                                    </weak>
+                                    <br/>
+                                    <weak>
+                                        <field name="days_to_deadline"/>
+                                    </weak>
+                                    <br/>
+                                    Submissions
+                                </div>
+                                <div class="o_kanban_record_headings" style="flex: 1; padding: 8px;">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <br/>
+                                    <small>Deadline:
+                                        <field name="days_to_deadline"/>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="view_bid_search" model="ir.ui.view">
         <field name="name">tender.bid.search</field>
         <field name="model">tender.bid</field>
@@ -115,7 +161,7 @@
     <record id="action_bid_tree" model="ir.actions.act_window">
         <field name="name">Bids</field>
         <field name="res_model">tender.bid</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No bids found.
