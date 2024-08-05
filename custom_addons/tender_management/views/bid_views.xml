@@ -1,4 +1,5 @@
 <odoo>
+
     <record id="view_bid_tree" model="ir.ui.view">
         <field name="name">tender.bid.tree</field>
         <field name="model">tender.bid</field>
@@ -10,8 +11,12 @@
                 <field name="partner_id"/>
                 <field name="date_created"/>
                 <field name="date_bid_to_end"/>
-                <field name="bid_amount"/>
-                <field name="state"/>
+                <field name="state"
+                       decoration-success="state == 'DRAFT' or state == 'DONE'"
+                       decoration-info="state == 'SUBMITTED'"
+                       decoration-danger="state == 'APPROVE'"
+                       decoration-warning="state == 'IN PROGRESS' or state == 'CANCEL'"
+                       widget="badge"/>
             </tree>
         </field>
     </record>
@@ -22,24 +27,68 @@
         <field name="arch" type="xml">
             <form string="Bid Form">
                 <header>
-                    <button name="action_submit" type="object" string="Submit"
-                            modifiers="{'invisible': [('state', '!=', 'draft')]}"/>
-                    <button name="action_accept" type="object" string="Accept"
-                            modifiers="{'invisible': [('state', '!=', 'submitted')]}"/>
-                    <button name="action_reject" type="object" string="Reject"
-                            modifiers="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <field name="state" invisible="1"/>
+                    <button name="action_approve" string="APPROVE" type="object" invisible="state not in 'submit'"
+                            class="oe_highlight"/>
+                    <button name="action_approved" string="IN PROGRESS" type="object" invisible="state not in 'approve'"
+                            class="oe_highlight"/>
+                    <button name="action_submit" string="SUBMIT" type="object" invisible="state not in 'draft'"
+                            class="oe_highlight"/>
+                    <button name="action_done" string="DONE" type="object" invisible="state not in 'approved'"
+                            class="oe_highlight"/>
+                    <button name="action_cancel" string="CANCEL" type="object" invisible="state in ['done','cancel']"
+                            class="oe_highlight"/>
+                    <button name="action_draft" string="DRAFT" type="object" invisible="state not in 'cancel'"
+                            class="oe_highlight"/>
+                    <button name="%(action_tenders)d" string="VIEW TENDER" type="action" invisible="state not in 'done'"
+                            class="oe_highlight"/>
+                    <field name="state" widget="badge" nolabel="1"
+                           badge_visible="draft,submit,approve,approved,done"/>
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
                         <field name="tender_id"/>
-                        <field name="ref"/>
-                        <field name="partner_id"/>
+                        <field name="ref" invisible="1"/>
                         <field name="date_created"/>
                         <field name="date_bid_to_end"/>
-                        <field name="bid_amount"/>
-                        <field name="state" readonly="1"/>
+                        <field name="state" invisible="1"/>
                     </group>
+                    <notebook>
+                        <page string="Material" name="Products">
+                            <field name="bid_management_line_ids">
+                                <tree string="Bid Management Line Ids" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="default_code"/>
+                                    <field name="description"/>
+                                    <field name="product_quantity"/>
+                                    <field name="product_uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Labour" name="Products">
+                            <field name="bid_management_line_ids">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="default_code"/>
+                                    <field name="description"/>
+                                    <field name="product_quantity"/>
+                                    <field name="product_uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Overhead" name="Products">
+                            <field name="bid_management_line_ids">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="default_code"/>
+                                    <field name="description"/>
+                                    <field name="product_quantity"/>
+                                    <field name="product_uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -53,7 +102,6 @@
                 <field name="name"/>
                 <field name="tender_id"/>
                 <field name="partner_id"/>
-                <field name="bid_amount"/>
                 <field name="state"/>
             </search>
         </field>

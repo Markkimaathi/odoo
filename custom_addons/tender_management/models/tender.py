@@ -34,6 +34,7 @@ class TenderManagement(models.Model):
     is_active = fields.Boolean(string='Active', default=True)
     website_published = fields.Boolean('Publish on Website', copy=False)
     rank = fields.Integer(string='Rank')
+    tender_id = fields.Many2one('tender.bid', string='Tender ID')
 
     @api.depends('date_created')
     def _compute_formatted_date(self):

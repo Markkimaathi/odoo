@@ -1,4 +1,12 @@
 <odoo>
+
+    <record id="action_tenders" model="ir.actions.act_window">
+        <field name="name">Tenders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tender.management</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
     <record id="view_tenders_tree" model="ir.ui.view">
         <field name="name">tenders.management</field>
         <field name="model">tender.management</field>
@@ -6,6 +14,12 @@
             <tree string="Tenders Management">
                 <field name="name"/>
                 <field name="ref"/>
+                <field name="state"
+                       decoration-success="state == 'DRAFT' or state == 'DONE'"
+                       decoration-info="state == 'SUBMITTED'"
+                       decoration-danger="state == 'APPROVE'"
+                       decoration-warning="state == 'IN PROGRESS' or state == 'CANCEL'"
+                       widget="badge"/>
             </tree>
         </field>
     </record>
@@ -30,8 +44,8 @@
                             class="oe_highlight"/>
                     <button name="%(action_tenders)d" string="VIEW TENDER" type="action" invisible="state not in 'done'"
                             class="oe_highlight"/>
-                    <field name="state" widget="statusbar" nolabel="1"
-                           statusbar_visible="draft,submit,approve,approved,done"/>
+                    <field name="state" widget="badge" nolabel="1"
+                           badge_visible="draft,submit,approve,approved,done"/>
                 </header>
                 <sheet>
                     <!--                    <group>-->
@@ -93,18 +107,9 @@
                                     <field name="product_quantity"/>
                                     <field name="product_uom_id"/>
                                 </tree>
-                                <form>
-                                    <group>
-                                        <field name="product_id"/>
-                                        <field name="default_code"/>
-                                        <field name="description"/>
-                                        <field name="product_quantity"/>
-                                        <field name="product_uom_id"/>
-                                    </group>
-                                </form>
                             </field>
                         </page>
-                         <page string="Labour" name="Products">
+                        <page string="Labour" name="Products">
                             <field name="tender_management_line_ids">
                                 <tree editable="top">
                                     <field name="product_id"/>
@@ -113,31 +118,17 @@
                                     <field name="product_quantity"/>
                                     <field name="product_uom_id"/>
                                 </tree>
-                                <form>
-                                    <group>
-                                        <field name="product_id"/>
-                                        <field name="default_code"/>
-                                        <field name="description"/>
-                                        <field name="product_quantity"/>
-                                        <field name="product_uom_id"/>
-                                    </group>
-                                </form>
                             </field>
                         </page>
                         <page string="Overhead" name="Products">
                             <field name="tender_management_line_ids">
                                 <tree editable="top">
                                     <field name="product_id"/>
-                                    <field name="price_unit"/>
-                                    <field name="qty"/>
+                                    <field name="default_code"/>
+                                    <field name="description"/>
+                                    <field name="product_quantity"/>
+                                    <field name="product_uom_id"/>
                                 </tree>
-                                <form>
-                                    <group>
-                                        <field name="product_id"/>
-                                        <field name="price_unit"/>
-                                        <field name="qty"/>
-                                    </group>
-                                </form>
                             </field>
                         </page>
                     </notebook>
@@ -200,13 +191,6 @@
         </field>
     </record>
 
-
-    <record id="action_tenders" model="ir.actions.act_window">
-        <field name="name">Tenders</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">tender.management</field>
-        <field name="view_mode">kanban,tree,form</field>
-    </record>
 
     <menuitem id="menu_management_tenders_main" name="Tenders" parent="menu_tenders_master" action="action_tenders"
               sequence="5"/>
