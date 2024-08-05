@@ -35,6 +35,14 @@ class TenderManagement(models.Model):
     website_published = fields.Boolean('Publish on Website', copy=False)
     rank = fields.Integer(string='Rank')
     tender_id = fields.Many2one('tender.bid', string='Tender ID')
+    category_id = fields.Many2one('tender.category', string='Category')
+
+    def create(self, vals):
+        if vals.get('category_id'):
+            category = self.env['your_module.category'].browse(vals['category_id'])
+            if category:
+                category.name = vals.get('name')
+        return super(TenderManagement, self).create(vals)
 
     @api.depends('date_created')
     def _compute_formatted_date(self):

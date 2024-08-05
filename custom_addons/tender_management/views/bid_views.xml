@@ -109,18 +109,18 @@
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                             <div class="o_kanban_record_top" style="display: flex;">
                                 <div class="oe_kanban_bottom_left"
-                                     style="flex: 0 0 80px; background-color: #00A09D; color: white; padding: 8px; text-align: center;">
-                                    <weak>
+                                     style="flex: 0 0 80px; background-color: #000000; color: white; padding: 8px; text-align: center;">
+                                    <strong>
                                         <t t-esc="record.formatted_date.raw_value.split('\n')[0].trim()"/>
-                                    </weak>
+                                    </strong>
                                     <br/>
-                                    <weak>
+                                    <strong>
                                         <t t-esc="record.formatted_date.raw_value.split('\n')[1].trim()"/>
-                                    </weak>
+                                    </strong>
                                     <br/>
-                                    <weak>
+                                    <strong>
                                         <field name="days_to_deadline"/>
-                                    </weak>
+                                    </strong>
                                     <br/>
                                     Submissions
                                 </div>
