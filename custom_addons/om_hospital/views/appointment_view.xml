@@ -13,19 +13,6 @@
         </field>
     </record>
 
-     <record id="action_hospital_patient" model="ir.actions.act_window">
-        <field name="name">Patients</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">hospital.patient</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{'search_default_male_filter':1, 'search_default_group_by_gender':1}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create your First Patient !
-            </p>
-        </field>
-    </record>
-
     <record id="action_hospital_appointment" model="ir.actions.act_window">
         <field name="name">Appointment</field>
         <field name="type">ir.actions.act_window</field>
