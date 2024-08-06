@@ -1,5 +1,16 @@
 <odoo>
 
+    <record id="action_bid_tree" model="ir.actions.act_window">
+        <field name="name">Bids</field>
+        <field name="res_model">tender.bid</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No bids found.
+            </p>
+        </field>
+    </record>
+
     <record id="view_bid_tree" model="ir.ui.view">
         <field name="name">tender.bid.tree</field>
         <field name="model">tender.bid</field>
@@ -157,15 +168,4 @@
     <menuitem id="menu_tenders_quotation_master" name="Tender Quotation" sequence="10"/>
     <menuitem id="menu_tender_bid" name="Bids" parent="menu_tenders_management_root" action="action_bid_tree"
               sequence="20"/>
-
-    <record id="action_bid_tree" model="ir.actions.act_window">
-        <field name="name">Bids</field>
-        <field name="res_model">tender.bid</field>
-        <field name="view_mode">tree,kanban,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                No bids found.
-            </p>
-        </field>
-    </record>
 </odoo>
