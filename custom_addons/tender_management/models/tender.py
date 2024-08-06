@@ -6,11 +6,12 @@ class TenderManagement(models.Model):
     _description = "Tender Management"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+
     def _get_default_user(self):
         return self.env.user.id
 
     name = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
-    tender_name = fields.Char(default='Tender Name')
+    tender_name = fields.Char(default='Tender Name',required=True)
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
     date_created = fields.Date(string='Start Date', default=fields.Date.context_today)

@@ -1,19 +1,17 @@
 from odoo import api, fields, models, _
 
-
 class Bid(models.Model):
     _name = 'tender.bid'
     _description = 'Bid'
 
-    def _get_default_user(self):
-        return self.env.user.id
 
-    name = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
-    tender_id = fields.Many2one('tender.management', string="Tender", required=True)
+    tender_id = fields.Many2one('tender.management', string="Tender")
+    tender_name = fields.Char(string='Tender Name', related='tender_id.tender_name')
+    name = fields.Many2one(string='Purchase Representative', related='tender_id.name')
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
-    date_created = fields.Date(string='Start Date', default=fields.Date.context_today)
-    date_bid_to_end = fields.Date(sbid_amounttring='End Date', default=fields.Date.context_today)
+    date_created = fields.Date(string='Start Date', related='tender_id.date_created')
+    date_bid_to_end = fields.Date(string='End Date', related='tender_id.date_bid_to_end')
     bid_management_line_ids = fields.One2many('bid.management.line', 'bid_management_id',
                                               string='Tender Management Line')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
@@ -62,6 +60,19 @@ class Bid(models.Model):
 
     def action_approve(self):
         self.change_state('approve')
+        return {
+            'name': 'Purchase rfq',
+            'type': 'ir.actions.act_window',
+            'res_model': 'purchase.order',
+            'view_id': self.env.ref('purchase.purchase_order_form').id,
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {
+                'default_partner_id': self.partner_id.id,
+                'default_tender_id': self.tender_id.id,
+            }
+        }
+
 
     def action_done(self):
         self.change_state('done')
