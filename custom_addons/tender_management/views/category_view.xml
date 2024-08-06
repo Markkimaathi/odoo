@@ -9,7 +9,6 @@
                     <group>
                         <field name="name"/>
                         <field name="description"/>
-                        <field name="active"/>
                     </group>
                 </sheet>
             </form>
@@ -23,7 +22,6 @@
             <tree string="Category">
                 <field name="name"/>
                 <field name="description"/>
-                <field name="active"/>
             </tree>
         </field>
     </record>

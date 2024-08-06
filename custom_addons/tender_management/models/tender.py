@@ -1,7 +1,6 @@
 from odoo import api, fields, models
 from datetime import date
 
-
 class TenderManagement(models.Model):
     _name = "tender.management"
     _description = "Tender Management"
@@ -26,23 +25,15 @@ class TenderManagement(models.Model):
     days_to_deadline = fields.Integer(string='Days To Deadline', compute='_compute_days')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
     bid_count = fields.Integer(string='Bid Count', compute='_compute_bid_count', store=True)
-    tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id',
-                                                 string='Tender Management Line')
+    tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id', string='Tender Management Line')
     formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
-    category = fields.Char(string='Category')
+    category_id = fields.Many2one('tender.category', string='Category')
+    category_name = fields.Char(related='category_id.name', string='Category Name', store=True)
     top_rank = fields.Char(string='Top Rank')
     is_active = fields.Boolean(string='Active', default=True)
     website_published = fields.Boolean('Publish on Website', copy=False)
     rank = fields.Integer(string='Rank')
     tender_id = fields.Many2one('tender.bid', string='Tender ID')
-    category_id = fields.Many2one('tender.category', string='Category')
-
-    def create(self, vals):
-        if vals.get('category_id'):
-            category = self.env['tender.category'].browse(vals['category_id'])
-            if category:
-                category.name = vals.get('name')
-        return super(TenderManagement, self).create(vals)
 
     @api.depends('date_created')
     def _compute_formatted_date(self):
@@ -100,7 +91,6 @@ class TenderManagement(models.Model):
         for record in self:
             record.website_published = not record.website_published
         return True
-
 
 class TenderManagementLine(models.Model):
     _name = 'tender.management.line'
