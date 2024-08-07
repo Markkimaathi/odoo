@@ -16,8 +16,9 @@
         <field name="model">tender.bid</field>
         <field name="arch" type="xml">
             <tree string="Bid List">
-                <field name="name"/>
+
                 <field name="tender_id"/>
+                <field name="tender_user"/>
                 <field name="ref"/>
                 <field name="partner_id"/>
                 <field name="date_created"/>
@@ -59,8 +60,9 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="name"/>
+
                         <field name="tender_id"/>
+                        <field name="tender_user"/>
                         <field name="ref" invisible="1"/>
                         <field name="date_created"/>
                         <field name="bid_amount"/>
@@ -89,7 +91,7 @@
         <field name="model">tender.bid</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="name"/>
+                <field name="tender_user"/>
                 <field name="date_created"/>
                 <field name="days_to_deadline"/>
                 <field name="formatted_date"/>
@@ -115,7 +117,7 @@
                                 </div>
                                 <div class="o_kanban_record_headings" style="flex: 1; padding: 8px;">
                                     <strong class="o_kanban_record_title">
-                                        <field name="name"/>
+                                        <field name="tender_user"/>
                                     </strong>
                                     <br/>
                                     <small>Deadline:
@@ -135,7 +137,7 @@
         <field name="model">tender.bid</field>
         <field name="arch" type="xml">
             <search string="Bid Search">
-                <field name="name"/>
+                <field name="tender_user"/>
                 <field name="tender_id"/>
                 <field name="partner_id"/>
                 <field name="state"/>

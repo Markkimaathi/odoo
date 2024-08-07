@@ -5,8 +5,8 @@ class Bid(models.Model):
     _description = 'Bid'
 
     tender_id = fields.Many2one('tender.management', string="Tender")
-    tender_name = fields.Char(string='Tender Name', related='tender_id.tender_name')
-    name = fields.Many2one(string='Purchase Representative', related='tender_id.name')
+    # tender_name = fields.Char(string='Tender Name', related='tender_id.tender_name')
+    tender_user = fields.Many2one(string='Purchase Representative', related='tender_id.tender_user')
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
     date_created = fields.Date(string='Start Date', related='tender_id.date_created')
@@ -49,6 +49,7 @@ class Bid(models.Model):
             vals['ref'] = self.env['ir.sequence'].next_by_code('tender.bid') or _('New')
         return super(Bid, self).create(vals)
 
+
     def change_state(self, new_state):
         for rec in self:
             rec.state = new_state
@@ -86,6 +87,7 @@ class Bid(models.Model):
 class BidManagementLine(models.Model):
     _name = 'bid.management.line'
     _description = 'Bid Management Line'
+
 
     bid_management_id = fields.Many2one('tender.bid', string='Bid Management')
     product_id = fields.Many2one('product.product', string='Product')

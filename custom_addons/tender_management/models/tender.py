@@ -1,15 +1,17 @@
 from odoo import api, fields, models
 
+
 class TenderManagement(models.Model):
     _name = "tender.management"
     _description = "Tender Management"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    name = fields.Char(default='Tender Name', required=True)
+
     def _get_default_user(self):
         return self.env.user.id
 
-    name = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
-    tender_name = fields.Char(default='Tender Name', required=True)
+    tender_user = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
     date_created = fields.Date(string='Start Date', default=fields.Date.context_today)
@@ -25,7 +27,8 @@ class TenderManagement(models.Model):
     days_to_deadline = fields.Integer(string='Days To Deadline', compute='_compute_days')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
     bid_count = fields.Integer(string='Bid Count', compute='_compute_bid_count', store=True)
-    tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id', string='Tender Management Line')
+    tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id',
+                                                 string='Tender Management Line')
     formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
     category_id = fields.Many2one('tender.category', string='Category', required=True)
     category_name = fields.Char(related='category_id.name', string='Category Name', store=True)
@@ -100,6 +103,7 @@ class TenderManagement(models.Model):
         for record in self:
             record.website_published = not record.website_published
         return True
+
 
 class TenderManagementLine(models.Model):
     _name = 'tender.management.line'
