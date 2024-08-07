@@ -1,5 +1,4 @@
-from odoo import api, fields, models
-
+from odoo import api, fields, models, _
 
 class TenderManagement(models.Model):
     _name = "tender.management"
@@ -7,11 +6,7 @@ class TenderManagement(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(default='Tender Name', required=True)
-
-    def _get_default_user(self):
-        return self.env.user.id
-
-    tender_user = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
+    tender_user = fields.Many2one('res.users', string="Purchase Representative", default=lambda self: self.env.user.id)
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
     date_created = fields.Date(string='Start Date', default=fields.Date.context_today)
@@ -33,9 +28,9 @@ class TenderManagement(models.Model):
     category_id = fields.Many2one('tender.category', string='Category', required=True)
     category_name = fields.Char(related='category_id.name', string='Category Name', store=True)
     top_rank = fields.Char(string='Top Rank', compute='_compute_top_rank')
+    rank = fields.Integer(string='Rank')
     is_active = fields.Boolean(string='Active', default=True)
     website_published = fields.Boolean('Publish on Website', copy=False)
-    rank = fields.Integer(string='Rank')
     tender_id = fields.Many2one('tender.bid', string='Tender ID')
 
     @api.depends('date_created')
@@ -62,12 +57,26 @@ class TenderManagement(models.Model):
         for tender in self:
             tender.bid_count = len(tender.bid_ids)
 
+    def _compute_rank(self):
+        for bid in self:
+            if bid.tender_id:
+                bid.tender_id._compute_top_rank()
+
     @api.depends('bid_ids')
     def _compute_top_rank(self):
         for tender in self:
             if tender.bid_ids:
-                highest_bid = max(tender.bid_ids.mapped('bid_amount'))
-                tender.top_rank = f"Highest Bid: {highest_bid}"
+                highest_bids_by_vendor = {}
+                for bid in tender.bid_ids:
+                    partner_id = bid.partner_id.id
+                    if partner_id not in highest_bids_by_vendor or bid.bid_amount > highest_bids_by_vendor[
+                        partner_id].bid_amount:
+                        highest_bids_by_vendor[partner_id] = bid
+                sorted_bids = sorted(highest_bids_by_vendor.values(), key=lambda b: b.bid_amount, reverse=True)
+                highest_bid_amount = sorted_bids[0].bid_amount if sorted_bids else 0
+                for rank, bid in enumerate(sorted_bids, start=1):
+                    bid.rank = rank
+                tender.top_rank = f"Top Rank: 1 | Highest Bid: {highest_bid_amount}"
             else:
                 tender.top_rank = "No Bids"
 
