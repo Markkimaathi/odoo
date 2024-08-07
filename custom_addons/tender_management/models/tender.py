@@ -1,17 +1,15 @@
 from odoo import api, fields, models
-from datetime import date
 
 class TenderManagement(models.Model):
     _name = "tender.management"
     _description = "Tender Management"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-
     def _get_default_user(self):
         return self.env.user.id
 
     name = fields.Many2one('res.users', string="Purchase Representative", default=_get_default_user)
-    tender_name = fields.Char(default='Tender Name',required=True)
+    tender_name = fields.Char(default='Tender Name', required=True)
     ref = fields.Char(string="Reference", copy=False, default='New', readonly=True)
     partner_id = fields.Many2many('res.partner', string="Vendor")
     date_created = fields.Date(string='Start Date', default=fields.Date.context_today)
@@ -22,15 +20,16 @@ class TenderManagement(models.Model):
         ('approve', 'APPROVE'),
         ('approved', 'IN PROGRESS'),
         ('done', 'DONE'),
-        ('cancel', 'CANCEL')], string='State', default='draft', required=True)
+        ('cancel', 'CANCEL')
+    ], string='State', default='draft', required=True)
     days_to_deadline = fields.Integer(string='Days To Deadline', compute='_compute_days')
     bid_ids = fields.One2many('tender.bid', 'tender_id', string="Bids")
     bid_count = fields.Integer(string='Bid Count', compute='_compute_bid_count', store=True)
     tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id', string='Tender Management Line')
     formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
-    category_id = fields.Many2one('tender.category', string='Category')
+    category_id = fields.Many2one('tender.category', string='Category', required=True)
     category_name = fields.Char(related='category_id.name', string='Category Name', store=True)
-    top_rank = fields.Char(string='Top Rank')
+    top_rank = fields.Char(string='Top Rank', compute='_compute_top_rank')
     is_active = fields.Boolean(string='Active', default=True)
     website_published = fields.Boolean('Publish on Website', copy=False)
     rank = fields.Integer(string='Rank')
@@ -59,6 +58,15 @@ class TenderManagement(models.Model):
     def _compute_bid_count(self):
         for tender in self:
             tender.bid_count = len(tender.bid_ids)
+
+    @api.depends('bid_ids')
+    def _compute_top_rank(self):
+        for tender in self:
+            if tender.bid_ids:
+                highest_bid = max(tender.bid_ids.mapped('bid_amount'))
+                tender.top_rank = f"Highest Bid: {highest_bid}"
+            else:
+                tender.top_rank = "No Bids"
 
     def change_state(self, new_state):
         for rec in self:

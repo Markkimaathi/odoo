@@ -21,6 +21,7 @@
                 <field name="ref"/>
                 <field name="partner_id"/>
                 <field name="date_created"/>
+                <field name="bid_amount"/>
                 <field name="days_to_deadline"/>
                 <field name="state"
                        decoration-success="state == 'DRAFT' or state == 'DONE'"
@@ -62,6 +63,7 @@
                         <field name="tender_id"/>
                         <field name="ref" invisible="1"/>
                         <field name="date_created"/>
+                        <field name="bid_amount"/>
                         <field name="days_to_deadline"/>
                         <field name="partner_id" widget="many2many_tags"/>
                         <field name="state" invisible="1"/>
@@ -73,30 +75,6 @@
                                     <field name="product_id"/>
                                     <field name="default_code"/>
                                     <field name="description"/>
-                                    <field name="product_quantity"/>
-                                    <field name="product_uom_id"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page string="Labour" name="Products">
-                            <field name="bid_management_line_ids">
-                                <tree editable="top">
-                                    <field name="product_id"/>
-                                    <field name="default_code"/>
-                                    <field name="description"/>
-                                    <field name="product_quantity"/>
-                                    <field name="product_uom_id"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page string="Overhead" name="Products">
-                            <field name="bid_management_line_ids">
-                                <tree editable="top">
-                                    <field name="product_id"/>
-                                    <field name="default_code"/>
-                                    <field name="description"/>
-                                    <field name="product_quantity"/>
-                                    <field name="product_uom_id"/>
                                 </tree>
                             </field>
                         </page>
