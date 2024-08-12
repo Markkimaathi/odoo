@@ -1,9 +1,11 @@
 from odoo import api, fields, models, _
 
+
 class Bid(models.Model):
     _name = 'tender.bid'
     _description = 'Bid'
 
+    tender_id = fields.Many2one('tender.management', string="Tender")
     tender_id = fields.Many2one('tender.management', string="Tender")
     tender_user = fields.Many2one(string='Purchase Representative', related='tender_id.tender_user')
     name = fields.Char(string="Reference", copy=False, default='New', readonly=True)
@@ -42,6 +44,7 @@ class Bid(models.Model):
         if bid.tender_id:
             for line in bid.tender_id.tender_management_line_ids:
                 self.env['bid.management.line'].create({
+                    'tender_management_line_id': line.id,
                     'bid_management_id': bid.id,
                     'product_id': line.product_id.id,
                     'product_uom_id': line.product_uom_id.id,
@@ -82,21 +85,22 @@ class Bid(models.Model):
     def action_submit(self):
         self.change_state('submit')
 
+
 class BidManagementLine(models.Model):
     _name = 'bid.management.line'
     _description = 'Bid Management Line'
 
+    tender_management_line_id = fields.Many2one('tender.management.line', string='Tender Management Line')
     bid_management_id = fields.Many2one('tender.bid', string='Bid Management')
     product_id = fields.Many2one('product.product', string='Product')
-    quantity = fields.Float(string='Quantity')
-    price_unit = fields.Float(string='Unit Price')
+    qty = fields.Integer(string='Quantity', related='tender_management_line_id.qty')
+    price_unit = fields.Float(string='Unit Price', store=True, readonly=False)
     price_total = fields.Float(string='Total Price', compute='_compute_price_total')
     default_code = fields.Char(related='product_id.default_code', string='Code')
-    qty = fields.Integer(string='Quantity')
     description = fields.Char(string='Description')
     product_uom_id = fields.Many2one('uom.uom', string='Product UOM', store=True, readonly=False)
 
-    @api.depends('quantity', 'price_unit')
+    @api.depends('qty', 'price_unit')
     def _compute_price_total(self):
         for line in self:
-            line.price_total = line.quantity * line.price_unit
+            line.price_total = line.qty * line.price_unit

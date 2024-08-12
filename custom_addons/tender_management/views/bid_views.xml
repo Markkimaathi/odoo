@@ -51,7 +51,7 @@
                             class="oe_highlight"/>
                     <button name="action_draft" string="DRAFT" type="object" invisible="state not in 'cancel'"
                             class="oe_highlight"/>
-                    <button name="%(action_tenders)d" string="VIEW TENDER" type="action" invisible="state not in 'done'"
+                    <button name="%(action_bid_tree)d" string="VIEW BIDS" type="action" invisible="state not in 'done'"
                             class="oe_highlight"/>
                     <field name="state" widget="badge" nolabel="1"
                            badge_visible="draft,submit,approve,done"/>
@@ -74,8 +74,10 @@
                             <field name="bid_management_line_ids">
                                 <tree string="Bid Management Line Ids" editable="bottom">
                                     <field name="product_id"/>
-                                    <field name="default_code"/>
+                                    <field name="price_unit"/>
                                     <field name="description"/>
+                                    <field name="qty"/>
+                                    <field name="price_total"/>
                                 </tree>
                             </field>
                         </page>

@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 
+
 class TenderManagement(models.Model):
     _name = "tender.management"
     _description = "Tender Management"
@@ -118,20 +119,14 @@ class TenderManagementLine(models.Model):
     _name = 'tender.management.line'
     _description = "Tender Management Line"
 
-    product_id = fields.Many2one('product.product', string='Products')
+    product_id = fields.Many2one('product.product', string='Products', required=True)
     product_uom_id = fields.Many2one(
         comodel_name='uom.uom',
         string='Product Uom',
         store=True, readonly=False,
     )
-    product_quantity = fields.Many2one(
-        comodel_name='uom.uom',
-        string='Product Quantity',
-        store=True, readonly=False,
-    )
-    price_unit = fields.Float(string='Price', related='product_id.list_price')
-    qty = fields.Integer(string='Quantity')
-    default_code = fields.Char(related='product_id.default_code', string='Code')
+    price_unit = fields.Float(string='Price', readonly=False)
+    qty = fields.Integer(string='Quantity', required=True)
     description = fields.Char(string='Description')
     tender_management_id = fields.Many2one('tender.management', string='Tender Management')
 
