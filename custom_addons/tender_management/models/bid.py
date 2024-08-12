@@ -1,6 +1,5 @@
 from odoo import api, fields, models, _
 
-
 class Bid(models.Model):
     _name = 'tender.bid'
     _description = 'Bid'
@@ -23,17 +22,7 @@ class Bid(models.Model):
         ('done', 'DONE'),
         ('cancel', 'CANCEL')
     ], string='State', default='draft', required=True)
-    rank = fields.Integer(string='Rank')  # Add this field
-
-    # @api.depends('date_bid_to_end')
-    # def _compute_days(self):
-    #     for rec in self:
-    #         if rec.date_bid_to_end:
-    #             today = fields.Date.context_today(self)
-    #             days_difference = (rec.date_bid_to_end - today).days
-    #             rec.days_to_deadline = days_difference
-    #         else:
-    #             rec.days_to_deadline = 0
+    rank = fields.Integer(string='Rank')
 
     @api.depends('date_created')
     def _compute_formatted_date(self):
@@ -48,7 +37,19 @@ class Bid(models.Model):
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
             vals['name'] = self.env['ir.sequence'].next_by_code('tender.bid') or _('New')
-        return super(Bid, self).create(vals)
+        bid = super(Bid, self).create(vals)
+
+        if bid.tender_id:
+            for line in bid.tender_id.tender_management_line_ids:
+                self.env['bid.management.line'].create({
+                    'bid_management_id': bid.id,
+                    'product_id': line.product_id.id,
+                    'product_uom_id': line.product_uom_id.id,
+                    'qty': line.qty,
+                    'description': line.description,
+                })
+
+        return bid
 
     def change_state(self, new_state):
         for rec in self:
@@ -69,8 +70,6 @@ class Bid(models.Model):
             }
         }
 
-
-
     def action_done(self):
         self.change_state('done')
 
@@ -80,10 +79,8 @@ class Bid(models.Model):
     def action_draft(self):
         self.change_state('draft')
 
-
     def action_submit(self):
         self.change_state('submit')
-
 
 class BidManagementLine(models.Model):
     _name = 'bid.management.line'
@@ -97,6 +94,7 @@ class BidManagementLine(models.Model):
     default_code = fields.Char(related='product_id.default_code', string='Code')
     qty = fields.Integer(string='Quantity')
     description = fields.Char(string='Description')
+    product_uom_id = fields.Many2one('uom.uom', string='Product UOM', store=True, readonly=False)
 
     @api.depends('quantity', 'price_unit')
     def _compute_price_total(self):

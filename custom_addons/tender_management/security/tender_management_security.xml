@@ -10,4 +10,15 @@
             <field name="perm_unlink" eval="True"/>
         </record>
     </data>
+     <data noupdate="1">
+        <record id="bid_management_line_access" model="ir.model.access">
+            <field name="name">bid.management.line.access</field>
+            <field name="model_id" ref="model_bid_management_line"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+    </data>
 </odoo>
