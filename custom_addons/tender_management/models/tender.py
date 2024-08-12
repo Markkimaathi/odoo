@@ -25,7 +25,7 @@ class TenderManagement(models.Model):
     tender_management_line_ids = fields.One2many('tender.management.line', 'tender_management_id',
                                                  string='Tender Management Line')
     formatted_date = fields.Char(string='Formatted Date', compute='_compute_formatted_date')
-    category_id = fields.Many2one('tender.category', string='Category', required=True)
+    category_id = fields.Many2one('tender.category', string='Category')
     category_name = fields.Char(related='category_id.name', string='Category Name', store=True)
     top_rank = fields.Char(string='Top Rank', compute='_compute_top_rank')
     rank = fields.Integer(string='Rank')

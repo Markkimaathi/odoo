@@ -43,11 +43,9 @@
                     <field name="state" invisible="1"/>
                     <button name="action_approve" string="APPROVE" type="object" invisible="state not in 'submit'"
                             class="oe_highlight"/>
-                    <button name="action_approved" string="IN PROGRESS" type="object" invisible="state not in 'approve'"
-                            class="oe_highlight"/>
                     <button name="action_submit" string="SUBMIT" type="object" invisible="state not in 'draft'"
                             class="oe_highlight"/>
-                    <button name="action_done" string="DONE" type="object" invisible="state not in 'approved'"
+                    <button name="action_done" string="DONE" type="object" invisible="state not in 'approve'"
                             class="oe_highlight"/>
                     <button name="action_cancel" string="CANCEL" type="object" invisible="state in ['done','cancel']"
                             class="oe_highlight"/>
@@ -56,7 +54,7 @@
                     <button name="%(action_tenders)d" string="VIEW TENDER" type="action" invisible="state not in 'done'"
                             class="oe_highlight"/>
                     <field name="state" widget="badge" nolabel="1"
-                           badge_visible="draft,submit,approve,approved,done"/>
+                           badge_visible="draft,submit,approve,done"/>
                 </header>
                 <sheet>
                     <group>

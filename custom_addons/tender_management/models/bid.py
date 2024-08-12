@@ -20,7 +20,6 @@ class Bid(models.Model):
         ('draft', 'DRAFT'),
         ('submit', 'SUBMITTED'),
         ('approve', 'APPROVE'),
-        ('approved', 'IN PROGRESS'),
         ('done', 'DONE'),
         ('cancel', 'CANCEL')
     ], string='State', default='draft', required=True)
@@ -61,7 +60,7 @@ class Bid(models.Model):
             'name': 'Purchase RFQ',
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_id': self.env.name('purchase.purchase_order_form').id,
+            'view_id': self.env.ref('purchase.purchase_order_form').id,
             'view_mode': 'form',
             'target': 'current',
             'context': {
@@ -69,6 +68,8 @@ class Bid(models.Model):
                 'default_tender_id': self.tender_id.id,
             }
         }
+
+
 
     def action_done(self):
         self.change_state('done')
@@ -79,8 +80,6 @@ class Bid(models.Model):
     def action_draft(self):
         self.change_state('draft')
 
-    def action_approved(self):
-        self.change_state('approved')
 
     def action_submit(self):
         self.change_state('submit')
