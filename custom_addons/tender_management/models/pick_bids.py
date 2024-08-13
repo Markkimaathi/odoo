@@ -17,8 +17,8 @@ class Bid(models.Model):
                                                    string='Pick Bid Management Line')
     state = fields.Selection([
         ('draft', 'DRAFT'),
-        ('accept', 'SUBMITTED'),
-        ('reject', 'APPROVE'),
+        ('approved', 'APPROVED'),
+        ('cancelled', 'CANCELLED')
     ], string='State', default='draft', required=True)
 
     def change_state(self, new_state):
@@ -26,7 +26,13 @@ class Bid(models.Model):
             rec.state = new_state
 
     def action_accept(self):
-        self.change_state('accept')
+        for bid in self:
+            other_bids = self.search([
+                ('id', '!=', bid.id),
+                ('state', '!=', 'cancelled')
+            ])
+            other_bids.write({'state': 'cancelled'})
+            bid.change_state('approved')
 
     def action_reject(self):
         self.change_state('reject')

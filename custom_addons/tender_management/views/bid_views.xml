@@ -47,9 +47,9 @@
                             class="oe_highlight"/>
                     <button name="action_done" string="DONE" type="object" invisible="state not in 'approve'"
                             class="oe_highlight"/>
-                    <button name="action_cancel" string="CANCEL" type="object" invisible="state in ['done','cancel']"
+                    <button name="action_cancelled" string="CANCEL" type="object" invisible="state in ['done','cancelled']"
                             class="oe_highlight"/>
-                    <button name="action_draft" string="DRAFT" type="object" invisible="state not in 'cancel'"
+                    <button name="action_draft" string="DRAFT" type="object" invisible="state not in 'cancelled'"
                             class="oe_highlight"/>
                     <button name="%(action_bid_tree)d" string="VIEW BIDS" type="action" invisible="state not in 'done'"
                             class="oe_highlight"/>

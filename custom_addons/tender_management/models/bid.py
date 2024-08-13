@@ -21,7 +21,7 @@ class Bid(models.Model):
         ('submit', 'SUBMITTED'),
         ('approve', 'APPROVE'),
         ('done', 'DONE'),
-        ('cancel', 'CANCEL')
+        ('cancelled', 'CANCELLED')
     ], string='State', default='draft', required=True)
     rank = fields.Integer(string='Rank')
 
@@ -58,7 +58,13 @@ class Bid(models.Model):
             rec.state = new_state
 
     def action_approve(self):
-        self.change_state('approve')
+        for bid in self:
+            other_bids = self.search([
+                ('id', '!=', bid.id),
+                ('state', '!=', 'cancelled')
+            ])
+            other_bids.write({'state': 'cancelled'})
+            bid.change_state('approve')
         return {
             'name': 'Purchase RFQ',
             'type': 'ir.actions.act_window',
@@ -75,8 +81,8 @@ class Bid(models.Model):
     def action_done(self):
         self.change_state('done')
 
-    def action_cancel(self):
-        self.change_state('cancel')
+    def action_cancelled(self):
+        self.change_state('cancelled')
 
     def action_draft(self):
         self.change_state('draft')
