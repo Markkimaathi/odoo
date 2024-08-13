@@ -5,5 +5,4 @@ access_tender_bid,tender_bid,tender_management.model_tender_bid,base.group_user,
 access_bid_management_line,bid.management.line,tender_management.model_bid_management_line,base.group_user,1,0,0,0
 access_bid_management_line,bid.management.line,tender_management.model_bid_management_line,base.group_user,1,1,0,0
 access_tender_category,tender.category,tender_management.model_tender_category,base.group_user,1,1,1,1
-access_pick_bid,pick.bid,tender_management.model_pick_bid,base.group_user,1,1,1,1
-access_pick_bid_management_line,pick.bid.management.line,tender_management.model_pick_bid_management_line,base.group_user,1,1,1,1
+
