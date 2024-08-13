@@ -48,28 +48,10 @@
                            badge_visible="draft,submit,approve,approved,done"/>
                 </header>
                 <sheet>
-                    <group style="display: flex; justify-content: flex-end; margin-bottom: 45px; margin-left: 45%; ">
-                        <div class="oe_button_box" name="button_box">
-                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                                <field name="is_active" widget="boolean_button"/>
-                            </button>
-                            <button name="toggle_website_publish" type="object" class="oe_stat_button" icon="fa-globe">
-                                <field name="website_published" widget="boolean_button"
-                                       options='{"terminology": {"string_true": "Published", "string_false": "Unpublished"}}'/>
-                            </button>
-                            <button class="oe_stat_button" icon="fa-star">
-                                <field name="rank" widget="statinfo" string="Rank"/>
-                            </button>
-                        </div>
-                    </group>
-
                     <group>
                         <group>
-
                             <field name="name" default_focus="1"/>
                             <field name="ref"/>
-
-
                             <field name="tender_user"/>
                             <field name="partner_id" widget="many2many_tags"/>
                             <field name="date_created"/>
@@ -77,7 +59,7 @@
                             <field name="days_to_deadline"/>
                         </group>
                         <group>
-                            <field name="category_id"/> <!-- This is the new field -->
+                            <field name="category_id"/>
                             <field name="top_rank"/>
                         </group>
                     </group>
