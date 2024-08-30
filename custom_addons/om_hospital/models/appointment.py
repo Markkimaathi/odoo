@@ -1,6 +1,5 @@
 from odoo import api, fields, models
 
-
 class HospitalAppointment(models.Model):
     _name = 'hospital.appointment'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -35,7 +34,7 @@ class HospitalAppointment(models.Model):
         print("Button Click !!!!!!!!!!")
         return {
             'effect': {
-                'message': 'Click successful',
+                'message': 'Click was a success',
                 'type': 'rainbow_man',
             }
         }
